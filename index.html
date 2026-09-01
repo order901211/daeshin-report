@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대신텍스타일 19대 설비 통합 관리 프로그램</title>
+<style>
+  body { font-family: 'Malgun Gothic', sans-serif; margin: 15px; background: #eef2f7; color: #333; }
+  h1 { color: #1a365d; margin-bottom: 5px; }
+  p.subtitle { color: #4a5568; margin-top: 0; font-size: 13px; margin-bottom: 10px; }
+  
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; background: white; padding: 10px 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .top-bar.sample-top-bar { background: #fffaf0; border: 1px solid #ecc94b; }
+  
+  .date-picker-box { display: flex; align-items: center; gap: 8px; background: #ebf8ff; border: 1px solid #3182ce; padding: 6px 12px; border-radius: 6px; }
+  .date-picker-box label { font-size: 12px; font-weight: bold; color: #2b6cb0; }
+  .date-picker-box input, .date-picker-box select { font-size: 12px; font-weight: bold; padding: 3px 6px; border: 1px solid #90cdf4; border-radius: 4px; }
+
+  .load-file-box { display: flex; align-items: center; gap: 6px; background: #f0fff4; border: 1px solid #38a169; padding: 6px 12px; border-radius: 6px; }
+  .load-file-box label { font-size: 12px; font-weight: bold; color: #276749; }
+  .load-file-box select { font-size: 12px; font-weight: bold; padding: 3px 6px; border: 1px solid #9ae6b4; border-radius: 4px; background: white; }
+
+  /* 탭 메뉴 스타일 */
+  .tab-menu-bar { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 2px solid #cbd5e0; }
+  .tab-btn { padding: 10px 20px; font-size: 14px; font-weight: bold; color: #4a5568; background: #e2e8f0; border: none; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s; }
+  .tab-btn.active { background: #2b6cb0; color: white; border-bottom: 3px solid #1a365d; }
+  .tab-btn.sample-tab.active { background: #d69e2e; border-bottom-color: #744210; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .summary-bar { display: flex; gap: 15px; background: #1a202c; color: white; padding: 12px 20px; border-radius: 6px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); align-items: center; justify-content: space-around; }
+  .summary-item { text-align: center; }
+  .summary-item .title { font-size: 12px; color: #a0aec0; margin-bottom: 4px; font-weight: bold; }
+  .summary-item .value { font-size: 18px; font-weight: bold; color: #38b2ac; }
+  .summary-item .value.money { color: #48bb78; }
+  .summary-item .value.sample-money { color: #ecc94b; }
+
+  .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 12px; }
+  .card { background: white; border: 2px solid #cbd5e0; border-radius: 6px; padding: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .sample-card { border-color: #d69e2e; }
+  
+  .g-20 { background-color: #e53e3e !important; color: white !important; }
+  .g-22 { background-color: #3182ce !important; color: white !important; }
+  .g-24 { background-color: #d69e2e !important; color: white !important; }
+  .g-28 { background-color: #38a169 !important; color: white !important; }
+  .g-32 { background-color: #68d391 !important; color: #1a202c !important; }
+  .g-36 { background-color: #319795 !important; color: white !important; }
+
+  .gauge-select { background: transparent; border: 1px solid rgba(255,255,255,0.6); color: inherit; font-weight: bold; font-size: 12px; border-radius: 3px; padding: 1px 2px; cursor: pointer; }
+  .gauge-select option { background: white; color: #333; }
+  
+  .card-header { padding: 4px 8px; font-weight: bold; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; transition: background-color 0.2s ease; }
+  .card-body { display: flex; margin-top: 6px; gap: 8px; }
+  
+  .info-sec { flex: 1.45; font-size: 11px; }
+  .info-sec div { margin-bottom: 3px; display: flex; align-items: center; }
+  .info-sec label { width: 68px; font-weight: bold; color: #4a5568; }
+  
+  input[type="text"], input[type="number"], select { border: 1px solid #cbd5e0; border-radius: 3px; padding: 2px 4px; font-size: 11px; box-sizing: border-box; }
+  input[type="text"], input[type="number"] { width: 95%; }
+  select { padding: 1px 2px; }
+  input[readonly] { background-color: #edf2f7; color: #2b6cb0; font-weight: bold; }
+  .theory-input { background-color: #e6fffa !important; color: #234e52 !important; font-weight: bold; text-align: center; }
+  .money-input { background-color: #f0fff4 !important; color: #22543d !important; font-weight: bold; }
+  .daily-max-input { background-color: #ebf8ff !important; color: #2b6cb0 !important; font-weight: bold; }
+  .sample-money-input { background-color: #fffff0 !important; color: #744210 !important; font-weight: bold; }
+  .defect-input { background-color: #fff5f5 !important; color: #c53030 !important; font-weight: bold; text-align: center; border-color: #feb2b2 !important; }
+  input:focus, select:focus { border-color: #3182ce; outline: none; background: #ebf8ff; }
+  
+  .spec-inputs { display: flex; align-items: center; gap: 2px; }
+  .spec-inputs input { width: 42px !important; text-align: center; padding: 1px 2px; font-weight: bold; }
+  
+  .right-spec-box { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+  .m-prod-sub { font-size: 10px; color: #234e52; font-weight: bold; display: flex; align-items: center; gap: 2px; }
+  .m-prod-sub input { width: 75px !important; padding: 1px 2px; font-size: 10px; }
+
+  .bar-grid { flex: 0.55; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #2d3748; padding: 2px; border-radius: 4px; height: fit-content; }
+  .bar-input { width: 100%; text-align: center; font-weight: bold; font-size: 11px; border: none; padding: 3px 0; box-sizing: border-box; background: white !important; color: #2d3748; }
+  .bar-input.urgent-num { color: #e53e3e !important; font-weight: bold; }
+  .bar-black { background: #1a202c; }
+  
+  .btn { padding: 8px 16px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+  .btn-save { background: #2b6cb0; }
+  .btn-sample-save { background: #d69e2e; }
+  .btn-analyze { background: #2c5282; margin-right: 5px; }
+  .btn-item-search { background: #d69e2e; }
+  .btn-print { background: #38a169; margin-left: 10px; }
+
+  /* 리포트 섹션 */
+  .report-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+  .report-header-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3182ce; padding-bottom: 12px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+  .report-title { color: #1a202c; font-size: 18px; margin: 0; font-weight: bold; display: flex; align-items: center; gap: 12px; }
+  .report-period-tag { font-size: 13px; color: #2b6cb0; background: #ebf8ff; padding: 3px 8px; border-radius: 4px; border: 1px solid #90cdf4; font-weight: bold; }
+  .filter-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  
+  .period-filter-box { display: flex; align-items: center; gap: 6px; background: #f7fafc; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e0; }
+  .period-filter-box label { font-size: 12px; font-weight: bold; color: #4a5568; }
+  .period-filter-box input { font-size: 12px; font-weight: bold; padding: 3px 6px; border: 1px solid #cbd5e0; border-radius: 4px; }
+  
+  .total-summary-card { background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%); color: white; padding: 12px 20px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-around; align-items: center; }
+  .total-summary-card .box { text-align: center; }
+  .total-summary-card .box .t-title { font-size: 12px; color: #cbd5e0; margin-bottom: 2px; }
+  .total-summary-card .box .t-val { font-size: 20px; font-weight: bold; color: #38b2ac; }
+  .total-summary-card .box .t-val.money { color: #48bb78; }
+  .total-summary-card .box .t-val.sample { color: #ecc94b; }
+
+  .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 10px; }
+  .report-card { border: 1px solid #cbd5e0; border-radius: 6px; padding: 10px; background: #f8fafc; }
+  .report-card h4 { margin: 0 0 6px 0; color: #2b6cb0; font-size: 14px; border-bottom: 1px solid #cbd5e0; padding-bottom: 4px; display: flex; justify-content: space-between; font-weight: bold; }
+  .report-item { font-size: 11.5px; background: white; padding: 8px 10px; border-radius: 4px; border-left: 3px solid #3182ce; margin-bottom: 4px; line-height: 1.6; }
+  .report-item.sample-item { border-left-color: #d69e2e; background: #fffaf0; }
+  
+  .efficiency-tag { color: #2b6cb0; font-weight: bold; background: #ebf8ff; padding: 2px 6px; border-radius: 4px; border: 1px solid #3182ce; font-size: 11px; display: inline-block; }
+  .machine-eff-tag { color: #6b46c1; font-weight: bold; background: #faf5ff; padding: 2px 6px; border-radius: 4px; border: 1px solid #805ad5; font-size: 11px; display: inline-block; }
+  .beam-changed-tag { color: #c53030; font-weight: bold; background: #fff5f5; padding: 2px 5px; border-radius: 3px; border: 1px solid #feb2b2; font-size: 10px; display: inline-block; margin-top: 2px; }
+  .item-changed-tag { color: #d69e2e; font-weight: bold; background: #fffff0; padding: 2px 5px; border-radius: 3px; border: 1px solid #faf089; font-size: 10px; display: inline-block; margin-top: 2px; }
+
+  /* 모바일 가독성 향상 CSS */
+  @media screen and (max-width: 768px) {
+    body { margin: 8px; font-size: 12px; }
+    .top-bar, .tab-menu-bar { flex-direction: column; gap: 8px; align-items: stretch; }
+    .tab-btn { padding: 8px; text-align: center; font-size: 12px; }
+    .grid-container, .report-grid { grid-template-columns: 1fr !important; }
+    .total-summary-card { flex-direction: column; gap: 10px; }
+  }
+
+  @media print {
+    body { background: white; margin: 0; padding: 0; font-size: 9pt; }
+    .top-bar, .tab-menu-bar, .filter-controls, .subtitle, button { display: none !important; }
+    #tab-input, #tab-sample { display: none !important; }
+    #tab-report { display: block !important; }
+    .report-section { padding: 0; box-shadow: none; border: none; }
+    .report-header-bar { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 8px; }
+    .report-title { font-size: 13pt; color: black; display: flex; justify-content: space-between; width: 100%; }
+    .report-period-tag { font-size: 9pt; color: black; background: transparent; border: none; padding: 0; }
+    .total-summary-card { background: #f0f0f0 !important; color: black !important; border: 1px solid #000; padding: 6px; margin-bottom: 8px; }
+    .total-summary-card .box .t-title { color: #333; font-size: 8pt; }
+    .total-summary-card .box .t-val { color: black !important; font-size: 12pt; }
+    .report-grid { display: grid; grid-template-columns: repeat(3, 1fr) !important; gap: 5px !important; }
+    .report-card { border: 1px solid #666; padding: 4px; background: white; page-break-inside: avoid; }
+    .report-card h4 { font-size: 9pt; color: black; border-bottom: 1px solid #888; margin-bottom: 3px; padding-bottom: 2px; }
+    .report-item { font-size: 7.5pt; padding: 4px; border-left: 2px solid #333; line-height: 1.4; }
+    .efficiency-tag, .machine-eff-tag { border: 1px solid #000 !important; background: transparent !important; color: black !important; padding: 1px 3px !important; font-weight: bold; }
+    .beam-changed-tag, .item-changed-tag { border: none !important; background: transparent !important; padding: 0 !important; color: black !important; font-weight: bold; }
+    @page { size: A4 portrait; margin: 8mm; }
+  }
+</style>
+</head>
+<body>
+
+<h1 style="margin:0 0 5px 0; font-size:20px;">🏭 대신텍스타일(Dae Shintexi) 19대 설비 통합 관리 프로그램</h1>
+<p class="subtitle" style="margin:0 0 10px 0;">※ 탭을 이동하여 정규 설비 현황 및 샘플 작업을 각각 독립적으로 관리할 수 있습니다.</p>
+
+<!-- 탭 메뉴 스위치 -->
+<div class="tab-menu-bar">
+  <button class="tab-btn active" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
+  <button class="tab-btn sample-tab" onclick="switchTab('sample')">🧪 샘플 작업 입력 (스팟 일지)</button>
+  <button class="tab-btn" onclick="switchTab('report')">📊 정밀 데이터 분석 및 아이템 이력 조회</button>
+</div>
+
+<!-- TAB 1: 설비 현황 입력 화면 -->
+<div id="tab-input" class="tab-content active">
+  <div class="top-bar">
+    <div class="load-file-box">
+      <label>📂 정규 일지 불러오기:</label>
+      <select id="main-saved-file-list" onchange="loadSelectedMainFile(this)"><option value="">-- 과거 정규 일지 선택 --</option><option value="대신텍스타일_설비현황_2026-08-29_08시.html">📅 2026-08-29 (08시)</option><option value="대신텍스타일_설비현황_2026-08-30_08시.html">📅 2026-08-30 (08시)</option><option value="대신텍스타일_설비현황_2026-08-31_08시.html">📅 2026-08-31 (08시)</option><option value="대신텍스타일_설비현황_2026-09-01_08시.html" selected="selected">📅 2026-09-01 (08시)</option></select>
+    </div>
+
+    <div class="date-picker-box">
+      <label>📅 기록 기준 일시:</label>
+      <input type="date" id="main-record-date" value="2026-09-01">
+      <select id="main-record-time">
+        <option value="00시">00:00 (자정)</option>
+        <option value="02시">02:00</option>
+        <option value="04시">04:00</option>
+        <option value="06시">06:00</option>
+        <option value="08시" selected="selected">08:00 (오전 출근)</option>
+        <option value="10시">10:00</option>
+        <option value="12시">12:00 (정오)</option>
+        <option value="14시">14:00</option>
+        <option value="16시">16:00</option>
+        <option value="18시">18:00 (퇴근)</option>
+        <option value="20시">20:00</option>
+        <option value="22시">22:00</option>
+      </select>
+    </div>
+
+    <div>
+      <button onclick="saveMainDataApp()" class="btn btn-save">💾 [정규 일지] D:\daeshinApp\data 저장 + 📱모바일 웹 전송</button>
+    </div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="summary-item">
+      <div class="title">⚡ 총합 이론 생산량 (하루 기준)</div>
+      <div class="value" id="sum-m-prod">15,054 Y</div>
+    </div>
+    <div class="summary-item">
+      <div class="title">💰 총합 하루 가득액</div>
+      <div class="value money" id="sum-daily-revenue">8,336,499 원</div>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="card" data-rpm-half="false" data-machine="1T"><div class="card-header g-28"><div><span>1T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>168 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="650" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="568.7 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="POLY THIN EVAN" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="100" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="33" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="100" data-prev-defect="0" data-prev-item="POLY THIN EVAN" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="3200 Y (106.7%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="600" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,920,000 원" data-val="1920000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="341,207 원" data-val="341207"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="11" onchange="checkBarUrgent(this)"><input class="bar-input" value="40" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="2T"><div class="card-header g-28"><div><span>2T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>168 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="0" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="0 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="생목&amp;빔없음" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="0" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="0" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="0 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="0 원" data-val="0"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="0 원" data-val="0"></div></div><div class="bar-grid"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="3T"><div class="card-header g-28"><div><span>3T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>168 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="0" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="0 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="0" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="0" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="0 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="0 원" data-val="0"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="0 원" data-val="0"></div></div><div class="bar-grid"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="4D"><div class="card-header g-22"><div><span>4D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>63 (460*3)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="630" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="354.3 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="MARTE OP5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="178" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="MARTE OP5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="8900 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1120" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="9,968,000 원" data-val="9968000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="396,850 원" data-val="396850"></div></div><div class="bar-grid"><input class="bar-input" value="505" onchange="checkBarUrgent(this)"><input class="bar-input" value="346" onchange="checkBarUrgent(this)"><input class="bar-input" value="43" onchange="checkBarUrgent(this)"><input class="bar-input" value="46" onchange="checkBarUrgent(this)"><input class="bar-input" value="490" onchange="checkBarUrgent(this)"><input class="bar-input" value="297" onchange="checkBarUrgent(this)"><input class="bar-input" value="297" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="5D"><div class="card-header g-22"><div><span>5D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>63 (460*3)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="342.3 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="BD" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="75" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="32" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="BD" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="2400 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1300" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="3,120,000 원" data-val="3120000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="444,984 원" data-val="444984"></div></div><div class="bar-grid"><input class="bar-input" value="101" onchange="checkBarUrgent(this)"><input class="bar-input" value="101" onchange="checkBarUrgent(this)"><input class="bar-input" value="59" onchange="checkBarUrgent(this)"><input class="bar-input" value="59" onchange="checkBarUrgent(this)"><input class="bar-input" value="172" onchange="checkBarUrgent(this)"><input class="bar-input" value="323" onchange="checkBarUrgent(this)"><input class="bar-input" value="185" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="6FR"><div class="card-header g-20"><div><span>6FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20" selected="selected">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (420*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="500" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="15.8" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="498.4 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="SINGA MESH-B" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="500" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="1" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="SINGA MESH-B" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="500 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="800" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="400,000 원" data-val="400000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="398,684 원" data-val="398684"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="183" onchange="checkBarUrgent(this)"><input class="bar-input" value="108" onchange="checkBarUrgent(this)"><input class="bar-input" value="108" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="7FR"><div class="card-header g-24"><div><span>7FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24" selected="selected">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>132 (510*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="0" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="0 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DST-7-BELT" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="대기 중" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="0" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="0" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="DST-7-BELT" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="0 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="0 원" data-val="0"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="0 원" data-val="0"></div></div><div class="bar-grid"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="8D"><div class="card-header g-22"><div><span>8D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="270" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="216 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DT-3004" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="45" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="38" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="DT-3004" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1710 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="2160" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="3,693,600 원" data-val="3693600"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="466,560 원" data-val="466560"></div></div><div class="bar-grid"><input class="bar-input" value="745" onchange="checkBarUrgent(this)"><input class="bar-input" value="69" onchange="checkBarUrgent(this)"><input class="bar-input" value="26" onchange="checkBarUrgent(this)"><input class="bar-input" value="183" onchange="checkBarUrgent(this)"><input class="bar-input" value="60" onchange="checkBarUrgent(this)"><input class="bar-input" value="746" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="9D"><div class="card-header g-22"><div><span>9D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="560" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="20.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="220.5 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="LIMA S/W 66" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="15" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="48" data-prev-defect="0" data-prev-item="LIMA S/W 66" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="702 Y (14%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1600" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,123,200 원" data-val="1123200"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="352,756 원" data-val="352756"></div></div><div class="bar-grid"><input class="bar-input" value="378" onchange="checkBarUrgent(this)"><input class="bar-input" value="378" onchange="checkBarUrgent(this)"><input class="bar-input" value="341" onchange="checkBarUrgent(this)"><input class="bar-input" value="380" onchange="checkBarUrgent(this)"><input class="bar-input" value="380" onchange="checkBarUrgent(this)"><input class="bar-input" value="1096" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="10D"><div class="card-header g-22"><div><span>10D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="280" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="217.9 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="PAD 4T-E-1" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="88" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="12" data-prev-defect="0" data-prev-item="PAD 4T-E-1" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="3508 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1850" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="6,489,800 원" data-val="6489800"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="403,200 원" data-val="403200"></div></div><div class="bar-grid"><input class="bar-input" value="1600" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="2" onchange="checkBarUrgent(this)"><input class="bar-input" value="355" onchange="checkBarUrgent(this)"><input class="bar-input" value="356" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="2" onchange="checkBarUrgent(this)"><input class="bar-input" value="1600" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="11D"><div class="card-header g-22"><div><span>11D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="15.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="310.8 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="X-RAY 5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3000" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="1" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="X-RAY 5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="50 Y (1.7%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1400" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="70,000 원" data-val="70000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="435,143 원" data-val="435143"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="40" onchange="checkBarUrgent(this)"><input class="bar-input" value="251" onchange="checkBarUrgent(this)"><input class="bar-input" value="662" onchange="checkBarUrgent(this)"><input class="bar-input" value="242" onchange="checkBarUrgent(this)"><input class="bar-input" value="108" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="12D"><div class="card-header g-22"><div><span>12D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="288 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="PAD 1.8T" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="108" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="PAD 1.8T" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="4320 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1450" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="6,264,000 원" data-val="6264000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="417,600 원" data-val="417600"></div></div><div class="bar-grid"><input class="bar-input" value="230" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="19" onchange="checkBarUrgent(this)"><input class="bar-input" value="341" onchange="checkBarUrgent(this)"><input class="bar-input" value="343" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="23" onchange="checkBarUrgent(this)"><input class="bar-input" value="218" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="13D"><div class="card-header g-22"><div><span>13D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>126 (460*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="640" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="719.9 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="MARTE OP5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="686" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="34" data-prev-defect="0" data-prev-item="MARTE OP5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="34266 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1120" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="38,377,920 원" data-val="38377920"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="806,299 원" data-val="806299"></div></div><div class="bar-grid"><input class="bar-input" value="289" onchange="checkBarUrgent(this)"><input class="bar-input" value="278" onchange="checkBarUrgent(this)"><input class="bar-input" value="127" onchange="checkBarUrgent(this)"><input class="bar-input" value="128" onchange="checkBarUrgent(this)"><input class="bar-input" value="398" onchange="checkBarUrgent(this)"><input class="bar-input" value="550" onchange="checkBarUrgent(this)"><input class="bar-input" value="550" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="14D"><div class="card-header g-22"><div><span>14D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="334.1 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DT9423" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="203" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="DT9423" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="8120 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1500" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="12,180,000 원" data-val="12180000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="501,120 원" data-val="501120"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="252" onchange="checkBarUrgent(this)"><input class="bar-input" value="271" onchange="checkBarUrgent(this)"><input class="bar-input" value="271" onchange="checkBarUrgent(this)"><input class="bar-input" value="53" onchange="checkBarUrgent(this)"><input class="bar-input" value="167" onchange="checkBarUrgent(this)"><input class="bar-input" value="201" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="15D"><div class="card-header g-22"><div><span>15D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="13.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="363.4 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="SAIDA SW" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="19" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="SAIDA SW" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="950 Y (19%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1690" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,605,500 원" data-val="1605500"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="614,173 원" data-val="614173"></div></div><div class="bar-grid"><input class="bar-input" value="294" onchange="checkBarUrgent(this)"><input class="bar-input" value="294" onchange="checkBarUrgent(this)"><input class="bar-input" value="384" onchange="checkBarUrgent(this)"><input class="bar-input" value="350" onchange="checkBarUrgent(this)"><input class="bar-input" value="358" onchange="checkBarUrgent(this)"><input class="bar-input" value="240" onchange="checkBarUrgent(this)"><input class="bar-input" value="424" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="16D"><div class="card-header g-22"><div><span>16D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>126 (460*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="393.7 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="132&quot;SW (75D)" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="25" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="10" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="132&quot;SW (75D)" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="250 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="3660" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="915,000 원" data-val="915000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="1,440,945 원" data-val="1440945"></div></div><div class="bar-grid"><input class="bar-input" value="79" onchange="checkBarUrgent(this)"><input class="bar-input" value="79" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="70" onchange="checkBarUrgent(this)"><input class="bar-input" value="124" onchange="checkBarUrgent(this)"><input class="bar-input" value="76" onchange="checkBarUrgent(this)"><input class="bar-input" value="77" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="17FR"><div class="card-header g-20"><div><span>17FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20" selected="selected">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>113 (420*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="520" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="1310.2 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="Rader M/S" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="100" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="60" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="Rader M/S" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="6000 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="300" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,800,000 원" data-val="1800000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="393,071 원" data-val="393071"></div></div><div class="bar-grid"><input class="bar-input" value="118" onchange="checkBarUrgent(this)"><input class="bar-input" value="119" onchange="checkBarUrgent(this)"><input class="bar-input" value="119" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="18FR"><div class="card-header g-24"><div><span>18FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24" selected="selected">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>113 (510*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="9.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="992.8 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="Chair M/S-60" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="60" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="34" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="Chair M/S-60" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="2040 Y (68%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="500" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,020,000 원" data-val="1020000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="496,405 원" data-val="496405"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="22" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="22" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="22" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="22" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="19T"><div class="card-header g-28"><div><span>19T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>210 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="1204" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="7.3" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="7125 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="50/50" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="544" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="3" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="33" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="50/50" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="17952 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="60" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,077,120 원" data-val="1077120"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="427,502 원" data-val="427502"></div></div><div class="bar-grid"><input class="bar-input" value="64" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="35" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+  </div>
+</div>
+
+<!-- TAB 2: 샘플 작업 입력 화면 -->
+<div id="tab-sample" class="tab-content">
+  <div class="top-bar sample-top-bar">
+    <div class="load-file-box" style="background:#fffaf0; border-color:#dd6b20;">
+      <label style="color:#c05621;">📂 샘플 일지 불러오기:</label>
+      <select id="sample-saved-file-list" onchange="loadSelectedSampleFile(this)"><option value="" selected="selected">-- 과거 샘플 일지 선택 --</option><option value="대신텍스타일_샘플일지_2026-08-30_10시.html">📅 2026-08-30 (10시)</option><option value="대신텍스타일_샘플일지_2026-09-01_14시.html">📅 2026-09-01 (14시)</option></select>
+    </div>
+
+    <div class="date-picker-box" style="background:#fffaf0; border-color:#dd6b20;">
+      <label style="color:#c05621;">📅 샘플 작업 일시:</label>
+      <input type="date" id="sample-record-date" value="2026-09-01">
+      <select id="sample-record-time">
+        <option value="00시">00:00 (자정)</option>
+        <option value="02시">02:00</option>
+        <option value="04시">04:00</option>
+        <option value="06시">06:00</option>
+        <option value="08시">08:00 (오전)</option>
+        <option value="10시" selected="selected">10:00</option>
+        <option value="12시">12:00 (정오)</option>
+        <option value="14시">14:00</option>
+        <option value="16시">16:00</option>
+        <option value="18시">18:00 (퇴근)</option>
+        <option value="20시">20:00</option>
+        <option value="22시">22:00</option>
+      </select>
+    </div>
+
+    <div>
+      <button onclick="saveSampleDataApp()" class="btn btn-sample-save">💾 [샘플 전용] D:\daeshinApp\data 저장</button>
+    </div>
+  </div>
+
+  <div class="summary-bar" style="background:#2c5282;">
+    <div class="summary-item">
+      <div class="title">🧪 해당 타임 샘플 생산량</div>
+      <div class="value" id="sum-sample-prod" style="color:#faf089;">0 Y/M</div>
+    </div>
+    <div class="summary-item">
+      <div class="title">💵 해당 타임 샘플비 수입</div>
+      <div class="value sample-money" id="sum-sample-revenue">0 원</div>
+    </div>
+  </div>
+
+  <div class="grid-container" id="sample-cards-container">
+        <div class="card sample-card" data-sample-machine="1T">
+          <div class="card-header g-28">
+            <div><span>🧪 1T (샘플 전용)</span></div>
+            <div style="font-size:11px;">168 (580*8)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="2T">
+          <div class="card-header g-28">
+            <div><span>🧪 2T (샘플 전용)</span></div>
+            <div style="font-size:11px;">168 (580*8)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="3T">
+          <div class="card-header g-28">
+            <div><span>🧪 3T (샘플 전용)</span></div>
+            <div style="font-size:11px;">168 (580*8)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="4D">
+          <div class="card-header g-22">
+            <div><span>🧪 4D (샘플 전용)</span></div>
+            <div style="font-size:11px;">63 (460*3)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="5D">
+          <div class="card-header g-22">
+            <div><span>🧪 5D (샘플 전용)</span></div>
+            <div style="font-size:11px;">63 (460*3)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="6FR">
+          <div class="card-header g-20">
+            <div><span>🧪 6FR (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (420*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="7FR">
+          <div class="card-header g-24">
+            <div><span>🧪 7FR (샘플 전용)</span></div>
+            <div style="font-size:11px;">132 (510*6)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="8D">
+          <div class="card-header g-22">
+            <div><span>🧪 8D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (510*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="9D">
+          <div class="card-header g-22">
+            <div><span>🧪 9D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (510*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="10D">
+          <div class="card-header g-22">
+            <div><span>🧪 10D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (460*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="11D">
+          <div class="card-header g-22">
+            <div><span>🧪 11D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (460*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="12D">
+          <div class="card-header g-22">
+            <div><span>🧪 12D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (460*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="13D">
+          <div class="card-header g-22">
+            <div><span>🧪 13D (샘플 전용)</span></div>
+            <div style="font-size:11px;">126 (460*6)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="14D">
+          <div class="card-header g-22">
+            <div><span>🧪 14D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (510*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="15D">
+          <div class="card-header g-22">
+            <div><span>🧪 15D (샘플 전용)</span></div>
+            <div style="font-size:11px;">85 (510*4)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="16D">
+          <div class="card-header g-22">
+            <div><span>🧪 16D (샘플 전용)</span></div>
+            <div style="font-size:11px;">126 (460*6)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="17FR">
+          <div class="card-header g-20">
+            <div><span>🧪 17FR (샘플 전용)</span></div>
+            <div style="font-size:11px;">113 (420*6)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="18FR">
+          <div class="card-header g-24">
+            <div><span>🧪 18FR (샘플 전용)</span></div>
+            <div style="font-size:11px;">113 (510*6)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="card sample-card" data-sample-machine="19T">
+          <div class="card-header g-28">
+            <div><span>🧪 19T (샘플 전용)</span></div>
+            <div style="font-size:11px;">210 (580*8)</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<!-- TAB 3: 정밀 데이터 분석 및 아이템 이력 조회 화면 -->
+<div id="tab-report" class="tab-content">
+  <div class="report-section">
+    <div class="report-header-bar">
+      <div class="report-title">
+        <span>📊 정밀 데이터 분석 및 아이템 제직 이력 보고서</span>
+        <span id="report-period-text" class="report-period-tag">구간 : 2026-09-01 08시 ~ 2026-09-01 14시</span>
+      </div>
+      
+      <div class="filter-controls">
+        <div class="period-filter-box">
+          <label>📅 시작일:</label>
+          <input type="date" id="search-start-date" value="2026-09-01">
+          <label>~ 종료일:</label>
+          <input type="date" id="search-end-date" value="2026-09-01">
+          <button onclick="filterAndRenderReport()" class="btn btn-analyze" style="padding: 4px 10px; font-size:12px;">🔍 기간 분석</button>
+        </div>
+
+        <div class="period-filter-box" style="background:#fffaf0; border-color:#dd6b20;">
+          <label style="color:#c05621;">🏷️ 아이템 검색:</label>
+          <input type="text" id="search-item-keyword" placeholder="예: MARTE" style="width:100px;" value="">
+          <button onclick="searchByItemName()" class="btn btn-item-search" style="padding: 4px 10px; font-size:12px;">🔍 이력 추적</button>
+        </div>
+
+        <button onclick="window.print()" class="btn btn-print" style="padding: 6px 12px; font-size:12px;">🖨️ 보고서 인쇄 (A4 1장)</button>
+      </div>
+    </div>
+
+    <div class="total-summary-card">
+      <div class="box">
+        <div class="t-title" id="summary-title-1">📦 선택 범위 내 1~19호기 '실제 제직 달성량' 총합</div>
+        <div class="t-val" id="grand-total-prod">+0 Y/M</div>
+      </div>
+      <div class="box">
+        <div class="t-title" id="summary-title-2">💰 선택 범위 내 '정규 제직 수입' 총합</div>
+        <div class="t-val money" id="grand-total-income">+0 원</div>
+      </div>
+      <div class="box">
+        <div class="t-title" id="summary-title-3">🧪 선택 범위 내 '샘플비 수입' 총합</div>
+        <div class="t-val sample" id="grand-total-sample-income">+600,000 원</div>
+      </div>
+    </div>
+
+    <div id="report-content" class="report-grid">
+        <div class="report-card">
+          <h4>
+            <span>🏭 1T 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">POLY THIN EVAN</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 2T 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +600,000원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">가동없음 / 미기입</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            <div style="margin-top:4px; font-size:10.5px; color:#744210; background:#fffff0; padding:4px 6px; border-radius:3px; border:1px solid #fbd38d;"><b>🧪 샘플 내역:</b><br>🧪 [DST-28-260901 KKC 기모지원단] 400Y (600,000원)</div>
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 3T 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">가동없음 / 미기입</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 4D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">MARTE OP5</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 5D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">BD</span><br>
+            <b>기간 달성량:</b> +0 M (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 6FR 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">SINGA MESH-B</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 7FR 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">DST-7-BELT</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 8D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">DT-3004</span><br>
+            <b>기간 달성량:</b> +0 M (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 9D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">LIMA S/W 66</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 10D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">PAD 4T-E-1</span><br>
+            <b>기간 달성량:</b> +0 M (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 11D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">X-RAY 5</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 12D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">PAD 1.8T</span><br>
+            <b>기간 달성량:</b> +0 M (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 13D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">MARTE OP5</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 14D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">DT9423</span><br>
+            <b>기간 달성량:</b> +0 M (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 15D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">SAIDA SW</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 16D 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">132"SW (75D)</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 17FR 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">Rader M/S</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 18FR 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">Chair M/S-60</span><br>
+            <b>기간 달성량:</b> +0 Y (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      
+        <div class="report-card">
+          <h4>
+            <span>🏭 19T 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">50/50</span><br>
+            <b>기간 달성량:</b> +0 M (+0절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            
+            
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  let ipcRenderer;
+  try {
+    ipcRenderer = require('electron').ipcRenderer;
+  } catch(e) {
+    ipcRenderer = null; // 모바일 브라우저 환경
+  }
+
+  let rawParsedDataList = [];
+  let fileContentsMap = {};
+
+  const machineList = [
+    { name: "1T", gauge: "28", spec: "168 (580*8)" },
+    { name: "2T", gauge: "28", spec: "168 (580*8)" },
+    { name: "3T", gauge: "28", spec: "168 (580*8)" },
+    { name: "4D", gauge: "22", spec: "63 (460*3)" },
+    { name: "5D", gauge: "22", spec: "63 (460*3)" },
+    { name: "6FR", gauge: "20", spec: "85 (420*4)" },
+    { name: "7FR", gauge: "24", spec: "132 (510*6)" },
+    { name: "8D", gauge: "22", spec: "85 (510*4)" },
+    { name: "9D", gauge: "22", spec: "85 (510*4)" },
+    { name: "10D", gauge: "22", spec: "85 (460*4)" },
+    { name: "11D", gauge: "22", spec: "85 (460*4)" },
+    { name: "12D", gauge: "22", spec: "85 (460*4)" },
+    { name: "13D", gauge: "22", spec: "126 (460*6)" },
+    { name: "14D", gauge: "22", spec: "85 (510*4)" },
+    { name: "15D", gauge: "22", spec: "85 (510*4)" },
+    { name: "16D", gauge: "22", spec: "126 (460*6)" },
+    { name: "17FR", gauge: "20", spec: "113 (420*6)" },
+    { name: "18FR", gauge: "24", spec: "113 (510*6)" },
+    { name: "19T", gauge: "28", spec: "210 (580*8)" }
+  ];
+
+  function getPrevDateStr(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    d.setDate(d.getDate() - 1);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${parseInt(mm)}/${parseInt(dd)}`;
+  }
+
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+    if (tabName === 'input') {
+      document.querySelectorAll('.tab-btn')[0].classList.add('active');
+      document.getElementById('tab-input').classList.add('active');
+    } else if (tabName === 'sample') {
+      document.querySelectorAll('.tab-btn')[1].classList.add('active');
+      document.getElementById('tab-sample').classList.add('active');
+    } else {
+      document.querySelectorAll('.tab-btn')[2].classList.add('active');
+      document.getElementById('tab-report').classList.add('active');
+    }
+  }
+
+  function initDatePicker() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+
+    if (document.getElementById('main-record-date')) document.getElementById('main-record-date').value = todayStr;
+    if (document.getElementById('sample-record-date')) document.getElementById('sample-record-date').value = todayStr;
+    if (document.getElementById('search-start-date')) document.getElementById('search-start-date').value = `${yyyy}-${mm}-01`;
+    if (document.getElementById('search-end-date')) document.getElementById('search-end-date').value = todayStr;
+  }
+
+  function renderSampleCards() {
+    const container = document.getElementById('sample-cards-container');
+    if (!container || container.children.length > 0) return;
+
+    let html = "";
+    machineList.forEach(m => {
+      html += `
+        <div class="card sample-card" data-sample-machine="${m.name}">
+          <div class="card-header g-${m.gauge}">
+            <div><span>🧪 ${m.name} (샘플 전용)</span></div>
+            <div style="font-size:11px;">${m.spec}</div>
+          </div>
+          <div class="card-body">
+            <div class="info-sec" style="flex:1;">
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX"></div>
+              <div>
+                <label>절단마수</label>
+                <div style="display:flex; gap:2px; width:95%;">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected>Y</option><option value="M">M</option></select>
+                </div>
+              </div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly value="0 원"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  function resetSampleInputs() {
+    document.querySelectorAll('#tab-sample .card').forEach(card => {
+      const itemIn = card.querySelector('.sample-item-name');
+      const cutYdIn = card.querySelector('.sample-cut-yd');
+      const prodCntIn = card.querySelector('.sample-prod-cnt');
+      const calcTotalIn = card.querySelector('.sample-calc-total');
+      const feeIn = card.querySelector('.sample-fee');
+      const revIn = card.querySelector('.sample-revenue');
+
+      if (itemIn) itemIn.value = "";
+      if (cutYdIn) cutYdIn.value = "0";
+      if (prodCntIn) prodCntIn.value = "0";
+      if (calcTotalIn) calcTotalIn.value = "0 Y";
+      if (feeIn) feeIn.value = "";
+      if (revIn) {
+        revIn.value = "0 원";
+        revIn.setAttribute('data-val', "0");
+      }
+    });
+    updateGlobalSummary();
+  }
+
+  function calcSampleProd(elem) {
+    const card = elem.closest('.card');
+    if (!card) return;
+    const cutYd = parseFloat(card.querySelector('.sample-cut-yd')?.value) || 0;
+    const prodCnt = parseFloat(card.querySelector('.sample-prod-cnt')?.value) || 0;
+    const unit = card.querySelector('.sample-unit-sel')?.value || 'Y';
+    const fee = parseFloat(card.querySelector('.sample-fee')?.value) || 0;
+
+    const totalProd = Math.round(cutYd * prodCnt * 100) / 100;
+    const calcTotalElem = card.querySelector('.sample-calc-total');
+    if (calcTotalElem) calcTotalElem.value = `${totalProd} ${unit}`;
+    
+    const revenueElem = card.querySelector('.sample-revenue');
+    if (revenueElem) {
+      revenueElem.value = `${fee.toLocaleString('ko-KR')} 원`;
+      revenueElem.setAttribute('data-val', fee);
+    }
+
+    updateGlobalSummary();
+  }
+
+  function changeGaugeColor(selectElem) {
+    const header = selectElem.closest('.card-header');
+    if (!header) return;
+    const gaugeVal = selectElem.value;
+    header.classList.remove('g-20', 'g-22', 'g-24', 'g-28', 'g-32', 'g-36');
+    header.classList.add(`g-${gaugeVal}`);
+  }
+
+  function checkBarUrgent(elem) {
+    const rawVal = elem.value.trim();
+    const val = parseFloat(rawVal);
+    if (rawVal !== "" && !isNaN(val) && val < 24) elem.classList.add('urgent-num');
+    else elem.classList.remove('urgent-num');
+  }
+
+  function onItemNameChange(inputElem) {
+    const card = inputElem.closest('.card');
+    if (card) calcProd(card.querySelector('.cut-yd') || inputElem);
+  }
+
+  function calcProd(elem) {
+    const card = elem.closest('.card');
+    if (!card) return;
+    const cardBody = card.querySelector('.card-body');
+    if (!cardBody) return;
+
+    const cutYd = parseFloat(cardBody.querySelector('.cut-yd')?.value) || 0;
+    const prodCnt = parseFloat(cardBody.querySelector('.prod-cnt')?.value) || 0;
+    const defectElem = cardBody.querySelector('.defect-yd');
+    const todayDefectYd = Math.abs(parseFloat(defectElem?.value) || 0);
+    const unit = cardBody.querySelector('.unit-sel')?.value || 'Y';
+    const fabricWidth = parseFloat(cardBody.querySelector('.fabric-width')?.value) || 1;
+    
+    const baseTotal = cutYd * prodCnt;
+    const resultTotal = Math.max(0, Math.round((baseTotal - todayDefectYd) * 100) / 100);
+    const targetGoalRaw = cardBody.querySelector('.target-goal')?.value || '';
+    const goalNum = parseFloat(targetGoalRaw.replace(/[^0-9.]/g, '')) || 0;
+
+    const totalElem = cardBody.querySelector('.calc-total');
+    if (totalElem) {
+      if (goalNum > 0) {
+        const rate = Math.round((resultTotal / goalNum) * 1000) / 10;
+        totalElem.value = `${resultTotal} ${unit} (${rate}%)`;
+      } else {
+        totalElem.value = `${resultTotal} ${unit}`;
+      }
+    }
+
+    const rpmIn = card.querySelector('.rpm-in');
+    const densityIn = card.querySelector('.density-in');
+    const theoryElem = card.querySelector('.calc-theory');
+    const weavingFeeIn = cardBody.querySelector('.weaving-fee');
+    const dailyRevenueElem = cardBody.querySelector('.daily-revenue');
+    const dailyMaxRevElem = cardBody.querySelector('.daily-max-revenue');
+
+    let totalTheoryProd = 0;
+    if (rpmIn && densityIn && theoryElem) {
+      const rawRpm = parseFloat(rpmIn.value) || 0;
+      const density = parseFloat(densityIn.value) || 0;
+      const isRpmHalf = card.getAttribute('data-rpm-half') === 'true';
+
+      if (rawRpm > 0 && density > 0) {
+        const effectiveRpm = isRpmHalf ? (rawRpm / 2) : rawRpm;
+        let baseTheoryProd = (unit === 'Y') ? ((effectiveRpm * 1440) / density / 100 / 0.9144) : ((effectiveRpm * 1440) / density / 100);
+        totalTheoryProd = baseTheoryProd * fabricWidth;
+        theoryElem.value = `${Math.round(totalTheoryProd * 10) / 10} ${unit}`;
+      } else theoryElem.value = `0 ${unit}`;
+    }
+
+    const weavingFee = parseFloat(weavingFeeIn?.value) || 0;
+    
+    const actualRevenue = Math.round(resultTotal * weavingFee);
+    if (dailyRevenueElem) {
+      dailyRevenueElem.value = `${actualRevenue.toLocaleString('ko-KR')} 원`;
+      dailyRevenueElem.setAttribute('data-val', actualRevenue);
+    }
+
+    const maxRevenue = Math.round(totalTheoryProd * weavingFee);
+    if (dailyMaxRevElem) {
+      dailyMaxRevElem.value = `${maxRevenue.toLocaleString('ko-KR')} 원`;
+      dailyMaxRevElem.setAttribute('data-val', maxRevenue);
+    }
+
+    updateGlobalSummary();
+  }
+
+  function recalculateAllCards() {
+    document.querySelectorAll('.gauge-select').forEach(select => changeGaugeColor(select));
+    document.querySelectorAll('#tab-input .card').forEach(card => {
+      const inputElem = card.querySelector('.cut-yd');
+      if (inputElem) calcProd(inputElem);
+      card.querySelectorAll('.bar-input').forEach(bar => checkBarUrgent(bar));
+    });
+    document.querySelectorAll('#tab-sample .card').forEach(card => {
+      const inputElem = card.querySelector('.sample-cut-yd');
+      if (inputElem) calcSampleProd(inputElem);
+    });
+  }
+
+  function updateGlobalSummary() {
+    let sumYards = 0, sumRevenue = 0;
+    document.querySelectorAll('#tab-input .card').forEach(card => {
+      const rawTheoryVal = parseFloat(card.querySelector('.calc-theory')?.value) || 0;
+      const unit = card.querySelector('.unit-sel')?.value || 'Y';
+      
+      const yardVal = (unit === 'M') ? (rawTheoryVal * 1.09361) : rawTheoryVal;
+      sumYards += yardVal;
+
+      sumRevenue += parseFloat(card.querySelector('.daily-max-revenue')?.getAttribute('data-val')) || 0;
+    });
+
+    const sumMElem = document.getElementById('sum-m-prod');
+    const sumRevElem = document.getElementById('sum-daily-revenue');
+    if (sumMElem) sumMElem.innerText = `${Math.round(sumYards).toLocaleString('ko-KR')} Y`;
+    if (sumRevElem) sumRevElem.innerText = `${Math.round(sumRevenue).toLocaleString('ko-KR')} 원`;
+
+    let sumSampleM = 0, sumSampleRevenue = 0;
+    document.querySelectorAll('#tab-sample .card').forEach(card => {
+      const sampleValStr = card.querySelector('.sample-calc-total')?.value || '0';
+      sumSampleM += parseFloat(sampleValStr.replace(/[^0-9.]/g, '')) || 0;
+      sumSampleRevenue += parseFloat(card.querySelector('.sample-revenue')?.getAttribute('data-val')) || 0;
+    });
+    const sumSampleMElem = document.getElementById('sum-sample-prod');
+    const sumSampleRevElem = document.getElementById('sum-sample-revenue');
+    if (sumSampleMElem) sumSampleMElem.innerText = `${Math.round(sumSampleM).toLocaleString('ko-KR')} Y/M`;
+    if (sumSampleRevElem) sumSampleRevElem.innerText = `${Math.round(sumSampleRevenue).toLocaleString('ko-KR')} 원`;
+  }
+
+  function saveMainDataApp() {
+    recalculateAllCards();
+
+    document.querySelectorAll('#tab-input .card').forEach(card => {
+      const defectElem = card.querySelector('.defect-yd');
+      const itemElem = card.querySelector('.item-name');
+      if (defectElem) {
+        defectElem.setAttribute('value', defectElem.value);
+        const currentItem = itemElem?.value.trim() || "";
+        defectElem.setAttribute('data-prev-item', currentItem);
+      }
+    });
+
+    prepareHtmlAttributes();
+
+    const selectedDate = document.getElementById('main-record-date').value;
+    const selectedTime = document.getElementById('main-record-time').value;
+
+    if (!selectedDate) {
+      alert("정규 설비 일지의 '기록 기준 날짜'를 선택해주세요!");
+      return;
+    }
+
+    const fileName = `대신텍스타일_설비현황_${selectedDate}_${selectedTime}.html`;
+    const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+    if (ipcRenderer) {
+      ipcRenderer.send('save-file', { fileName, htmlContent });
+    } else {
+      alert("웹 브라우저 환경에서는 직접 저장할 수 없습니다.");
+    }
+  }
+
+  function saveSampleDataApp() {
+    recalculateAllCards();
+    prepareHtmlAttributes();
+
+    const selectedDate = document.getElementById('sample-record-date').value;
+    const selectedTime = document.getElementById('sample-record-time').value;
+
+    if (!selectedDate) {
+      alert("샘플 일지의 '작업 날짜'를 선택해주세요!");
+      return;
+    }
+
+    const fileName = `대신텍스타일_샘플일지_${selectedDate}_${selectedTime}.html`;
+    const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+    if (ipcRenderer) {
+      ipcRenderer.send('save-file', { fileName, htmlContent });
+    }
+  }
+
+  function prepareHtmlAttributes() {
+    document.querySelectorAll('input').forEach(input => input.setAttribute('value', input.value));
+    document.querySelectorAll('select').forEach(select => {
+      select.querySelectorAll('option').forEach(opt => {
+        if (opt.value === select.value) opt.setAttribute('selected', 'selected');
+        else opt.removeAttribute('selected');
+      });
+    });
+  }
+
+  if (ipcRenderer) {
+    ipcRenderer.on('save-success', (event, filePath) => {
+      alert(`성공적으로 저장 및 GitHub 업로드가 완료되었습니다!\n${filePath}`);
+      runFolderAnalysis();
+    });
+
+    ipcRenderer.on('folder-analysis-data', (event, parsedDataList) => {
+      if (!parsedDataList || parsedDataList.length === 0) return;
+
+      rawParsedDataList = [];
+      fileContentsMap = {};
+      const parser = new DOMParser();
+
+      const mainListSelect = document.getElementById('main-saved-file-list');
+      const sampleListSelect = document.getElementById('sample-saved-file-list');
+
+      if (mainListSelect) mainListSelect.innerHTML = '<option value="">-- 과거 정규 일지 선택 --</option>';
+      if (sampleListSelect) sampleListSelect.innerHTML = '<option value="">-- 과거 샘플 일지 선택 --</option>';
+
+      parsedDataList.forEach(item => {
+        fileContentsMap[item.fileName] = item.content;
+        const doc = parser.parseFromString(item.content, 'text/html');
+        const isSampleFile = item.fileName.includes('_샘플일지_');
+
+        let innerDate = isSampleFile ? doc.getElementById('sample-record-date')?.value : doc.getElementById('main-record-date')?.value;
+        let innerTime = isSampleFile ? doc.getElementById('sample-record-time')?.value : doc.getElementById('main-record-time')?.value;
+
+        const matchDate = item.fileName.match(/(\d{4}-\d{2}-\d{2})/);
+        const fileDate = innerDate || (matchDate ? matchDate[1] : '');
+
+        const matchTime = item.fileName.match(/(\d{2}시)/);
+        const fileTime = innerTime || (matchTime ? matchTime[1] : '08시');
+
+        const fullKey = `${fileDate}_${fileTime}`;
+
+        const opt = document.createElement('option');
+        opt.value = item.fileName;
+        opt.innerText = `📅 ${fileDate} (${fileTime})`;
+
+        if (isSampleFile && sampleListSelect) {
+          sampleListSelect.appendChild(opt);
+        } else if (!isSampleFile && mainListSelect) {
+          mainListSelect.appendChild(opt);
+        }
+
+        let machineMap = {};
+        let sampleMachineMap = {};
+
+        if (!isSampleFile) {
+          doc.querySelectorAll('#tab-input .card').forEach(card => {
+            const mName = card.getAttribute('data-machine');
+            const itemName = card.querySelector('.item-name')?.value || '';
+            const cutYd = parseFloat(card.querySelector('.cut-yd')?.value) || 0;
+            const prodCnt = parseFloat(card.querySelector('.prod-cnt')?.value) || 0;
+            const todayDefect = Math.abs(parseFloat(card.querySelector('.defect-yd')?.value) || 0);
+            const unit = card.querySelector('.unit-sel')?.value || 'Y';
+            
+            const nVal = Math.max(0, (cutYd * prodCnt) - todayDefect);
+            const weavingFee = parseFloat(card.querySelector('.weaving-fee')?.value) || 0;
+            const theoryVal = parseFloat((card.querySelector('.calc-theory')?.value || '0').replace(/[^0-9.]/g, '')) || 0;
+
+            let barVals = [];
+            card.querySelectorAll('.bar-input').forEach(b => barVals.push(b.value.trim()));
+
+            if (mName) {
+              machineMap[mName] = { 
+                item: itemName, cutYd, prodCnt, todayDefect, nVal, unit, weavingFee, theoryVal, bars: barVals 
+              };
+            }
+          });
+        } else {
+          doc.querySelectorAll('#tab-sample .card').forEach(card => {
+            const mName = card.getAttribute('data-sample-machine');
+            const itemName = card.querySelector('.sample-item-name')?.value || '';
+            const cutYd = parseFloat(card.querySelector('.sample-cut-yd')?.value) || 0;
+            const prodCnt = parseFloat(card.querySelector('.sample-prod-cnt')?.value) || 0;
+            const unit = card.querySelector('.sample-unit-sel')?.value || 'Y';
+            const sampleFee = parseFloat(card.querySelector('.sample-fee')?.value) || 0;
+            const sampleProd = cutYd * prodCnt;
+
+            if (mName && itemName.trim() !== "" && sampleProd > 0) {
+              sampleMachineMap[mName] = { item: itemName, sampleProd, unit, sampleFee };
+            }
+          });
+        }
+
+        rawParsedDataList.push({ fileName: item.fileName, isSample: isSampleFile, dateStr: fileDate, timeStr: fileTime, fullKey, machines: machineMap, samples: sampleMachineMap });
+      });
+
+      filterAndRenderReport();
+    });
+  }
+
+  function runFolderAnalysis() {
+    if (ipcRenderer) {
+      ipcRenderer.send('analyze-all-files');
+    }
+  }
+
+  function loadSelectedMainFile(selectElem) {
+    const fileName = selectElem.value;
+    if (!fileName || !fileContentsMap[fileName]) return;
+
+    const htmlContent = fileContentsMap[fileName];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+
+    const innerDate = doc.getElementById('main-record-date')?.value;
+    const innerTime = doc.getElementById('main-record-time')?.value;
+    if (innerDate) document.getElementById('main-record-date').value = innerDate;
+    if (innerTime) document.getElementById('main-record-time').value = innerTime;
+
+    doc.querySelectorAll('#tab-input .card').forEach(latestCard => {
+      const mName = latestCard.getAttribute('data-machine');
+      const currentCard = document.querySelector(`#tab-input .card[data-machine="${mName}"]`);
+      if (currentCard) {
+        currentCard.innerHTML = latestCard.innerHTML;
+      }
+    });
+
+    recalculateAllCards();
+  }
+
+  function filterAndRenderReport() {
+    const startDate = document.getElementById('search-start-date')?.value;
+    const endDate = document.getElementById('search-end-date')?.value;
+
+    if (!startDate || !endDate) return;
+
+    const filteredData = rawParsedDataList.filter(d => d.dateStr >= startDate && d.dateStr <= endDate);
+    if (filteredData.length === 0) return;
+
+    document.getElementById('summary-title-1').innerText = "📦 선택 범위 내 1~19호기 '실제 제직 달성량' 총합";
+    document.getElementById('summary-title-2').innerText = "💰 선택 범위 내 '정규 제직 수입' 총합";
+    document.getElementById('summary-title-3').innerText = "🧪 선택 범위 내 '샘플비 수입' 총합";
+    processAndRenderReport(filteredData);
+  }
+
+  function processAndRenderReport(dataArr) {
+    dataArr.sort((a, b) => a.fullKey.localeCompare(b.fullKey));
+
+    const mainLogs = dataArr.filter(d => !d.isSample);
+    const machines = machineList.map(m => m.name);
+    let reportHtml = "";
+    
+    let grandTotalProd = 0;
+    let grandTotalIncome = 0;
+    let grandTotalSampleIncome = 0;
+
+    const firstEntry = dataArr[0];
+    const lastEntry = dataArr[dataArr.length - 1];
+    
+    if (firstEntry && lastEntry) {
+      const periodStr = `구간 : ${firstEntry.dateStr} ${firstEntry.timeStr} ~ ${lastEntry.dateStr} ${lastEntry.timeStr}`;
+      const periodElem = document.getElementById('report-period-text');
+      if (periodElem) periodElem.innerText = periodStr;
+    }
+
+    let elapsedDays = 1;
+    if (firstEntry && lastEntry) {
+      const startDateObj = new Date(firstEntry.dateStr);
+      const endDateObj = new Date(lastEntry.dateStr);
+      const diffTime = Math.abs(endDateObj - startDateObj);
+      elapsedDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+    }
+
+    machines.forEach(m => {
+      let addedProd = 0;
+      let addedCnt = 0;
+      let sectionIncome = 0;
+      let sectionSampleIncome = 0;
+
+      let beamEvents = [];
+      let itemEvents = [];
+      let sampleLogs = [];
+
+      let currentTrackItem = "";
+      let lastNVal = 0;
+      let lastProdCnt = 0;
+
+      let totalMaxRunHours = 0;
+      let totalActualBeamRunHours = 0;
+      let hasItemChangeInPeriod = false;
+
+      mainLogs.forEach((log, idx) => {
+        const mData = log.machines ? log.machines[m] : null;
+        if (!mData) return;
+
+        const actualEventDateStr = getPrevDateStr(log.dateStr);
+        const itemTrim = mData.item ? mData.item.trim() : "";
+
+        if (idx === 0) {
+          currentTrackItem = itemTrim;
+          lastNVal = mData.nVal;
+          lastProdCnt = mData.prodCnt;
+        } else {
+          const prevLog = mainLogs[idx - 1];
+          const prevM = prevLog.machines[m];
+          const prevItemTrim = prevM && prevM.item ? prevM.item.trim() : "";
+
+          if (prevItemTrim !== itemTrim) {
+            hasItemChangeInPeriod = true;
+            const oldName = prevItemTrim === "" ? "가동없음" : prevItemTrim;
+            const newName = itemTrim === "" ? "가동없음" : itemTrim;
+            itemEvents.push(`${actualEventDateStr}일 아이템 변경 (${oldName} ➔ ${newName})`);
+
+            addedProd += mData.nVal;
+            addedCnt += mData.prodCnt;
+            sectionIncome += Math.round(mData.nVal * mData.weavingFee);
+
+            currentTrackItem = itemTrim;
+            lastNVal = mData.nVal;
+            lastProdCnt = mData.prodCnt;
+          } 
+          else {
+            if (mData.nVal >= lastNVal) {
+              const diffN = mData.nVal - lastNVal;
+              const diffCnt = mData.prodCnt - lastProdCnt;
+              
+              addedProd += diffN;
+              addedCnt += diffCnt;
+              sectionIncome += Math.round(diffN * mData.weavingFee);
+            }
+            lastNVal = mData.nVal;
+            lastProdCnt = mData.prodCnt;
+          }
+
+          if (prevM && prevM.bars && mData.bars) {
+            let changedNums = [];
+            let validBeamDecreases = [];
+
+            const tPrev = new Date(`${prevLog.dateStr}T${prevLog.timeStr.replace('시', ':00:00')}`);
+            const tCurr = new Date(`${log.dateStr}T${log.timeStr.replace('시', ':00:00')}`);
+            let stepHours = (tCurr - tPrev) / (1000 * 60 * 60);
+            if (isNaN(stepHours) || stepHours <= 0) stepHours = 24;
+
+            prevM.bars.forEach((sBar, bIdx) => {
+              const sVal = parseFloat(sBar);
+              const eVal = parseFloat(mData.bars[bIdx]);
+
+              if (!isNaN(sVal) && !isNaN(eVal)) {
+                if (eVal > (sVal + 5)) {
+                  changedNums.push(bIdx + 1);
+                } else if (sVal > eVal) {
+                  const decHours = sVal - eVal;
+                  validBeamDecreases.push(decHours);
+                }
+              }
+            });
+
+            if (changedNums.length > 0) {
+              beamEvents.push(`${actualEventDateStr}일 [${changedNums.join(', ')}번 빔 교체됨]`);
+            }
+
+            if (validBeamDecreases.length > 0) {
+              const maxDecreasedHours = Math.max(...validBeamDecreases);
+              totalMaxRunHours += stepHours;
+              totalActualBeamRunHours += Math.min(stepHours, maxDecreasedHours);
+            }
+          }
+        }
+      });
+
+      dataArr.forEach(log => {
+        if (log.isSample && log.samples && log.samples[m]) {
+          const s = log.samples[m];
+          sectionSampleIncome += s.sampleFee;
+          sampleLogs.push(`🧪 [${s.item}] ${s.sampleProd}${s.unit} (${s.sampleFee.toLocaleString('ko-KR')}원)`);
+        }
+      });
+
+      const lastMainLog = mainLogs.length > 0 ? mainLogs[mainLogs.length - 1] : null;
+      const endMachineData = (lastMainLog && lastMainLog.machines[m]) ? lastMainLog.machines[m] : { unit: "Y", theoryVal: 0, item: "" };
+
+      grandTotalProd += addedProd;
+      grandTotalIncome += sectionIncome;
+      grandTotalSampleIncome += sectionSampleIncome;
+
+      const dailyTheoryVal = endMachineData.theoryVal || 0;
+      const expectedTotalM = dailyTheoryVal * elapsedDays;
+      const fabricEffRate = (expectedTotalM > 0) ? (Math.round((addedProd / expectedTotalM) * 1000) / 10) : 0;
+
+      let machineEffHtml = "";
+      if (mainLogs.length <= 2 && hasItemChangeInPeriod) {
+        machineEffHtml = `<span style="color:#d69e2e; font-weight:bold; background:#fffff0; padding:2px 6px; border-radius:4px; border:1px solid #faf089; font-size:11px;">아이템 교체</span>`;
+      } else {
+        let machineEffRate = 0;
+        if (totalMaxRunHours > 0) {
+          machineEffRate = Math.round((totalActualBeamRunHours / totalMaxRunHours) * 1000) / 10;
+        } else {
+          machineEffRate = fabricEffRate;
+        }
+        machineEffHtml = `<span class="machine-eff-tag">${machineEffRate}%</span>`;
+      }
+
+      let statusBadges = "";
+      if (itemEvents.length > 0) {
+        itemEvents.forEach(evt => {
+          statusBadges += `<div class="item-changed-tag">✨ ${evt}</div> `;
+        });
+      }
+      if (beamEvents.length > 0) {
+        beamEvents.forEach(evt => {
+          statusBadges += `<div class="beam-changed-tag">🔄 ${evt}</div> `;
+        });
+      }
+
+      let sampleTagHtml = sampleLogs.length > 0 
+        ? `<div style="margin-top:4px; font-size:10.5px; color:#744210; background:#fffff0; padding:4px 6px; border-radius:3px; border:1px solid #fbd38d;"><b>🧪 샘플 내역:</b><br>${sampleLogs.join('<br>')}</div>`
+        : '';
+
+      const displayItemName = endMachineData.item.trim() === "" ? "가동없음 / 미기입" : endMachineData.item;
+
+      reportHtml += `
+        <div class="report-card">
+          <h4>
+            <span>🏭 ${m} 호기</span>
+            <span style="font-size:11px; color:#276749;">수입: +${(sectionIncome + sectionSampleIncome).toLocaleString('ko-KR')}원</span>
+          </h4>
+          <div class="report-item">
+            <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">${displayItemName}</span><br>
+            <b>기간 달성량:</b> +${addedProd.toLocaleString('ko-KR')} ${endMachineData.unit} (${addedCnt >= 0 ? '+' : ''}${addedCnt}절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">${fabricEffRate}%</span><br>
+            <b>기계 가동률:</b> ${machineEffHtml}<br>
+            ${statusBadges ? `<b>특이사항:</b> ${statusBadges}<br>` : ''}
+            ${sampleTagHtml}
+          </div>
+        </div>
+      `;
+    });
+
+    document.getElementById('grand-total-prod').innerText = `+${Math.round(grandTotalProd).toLocaleString('ko-KR')} Y/M`;
+    document.getElementById('grand-total-income').innerText = `+${Math.round(grandTotalIncome).toLocaleString('ko-KR')} 원`;
+    document.getElementById('grand-total-sample-income').innerText = `+${Math.round(grandTotalSampleIncome).toLocaleString('ko-KR')} 원`;
+
+    document.getElementById('report-content').innerHTML = reportHtml;
+  }
+
+  window.onload = function() {
+    initDatePicker();
+    renderSampleCards();
+    recalculateAllCards();
+    if (ipcRenderer) {
+      ipcRenderer.send('request-latest-data');
+      runFolderAnalysis();
+    }
+  };
+</script>
+
+
+</body></html>
