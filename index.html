@@ -153,17 +153,17 @@
 
 <!-- 탭 메뉴 스위치 -->
 <div class="tab-menu-bar">
-  <button class="tab-btn active" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
-  <button class="tab-btn sample-tab" onclick="switchTab('sample')">🧪 샘플 작업 입력 (스팟 일지)</button>
+  <button class="tab-btn" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
+  <button class="tab-btn sample-tab active" onclick="switchTab('sample')">🧪 샘플 작업 입력 (스팟 일지)</button>
   <button class="tab-btn" onclick="switchTab('report')">📊 정밀 데이터 분석 및 아이템 이력 조회</button>
 </div>
 
 <!-- TAB 1: 설비 현황 입력 화면 -->
-<div id="tab-input" class="tab-content active">
+<div id="tab-input" class="tab-content">
   <div class="top-bar">
     <div class="load-file-box">
       <label>📂 정규 일지 불러오기:</label>
-      <select id="main-saved-file-list" onchange="loadSelectedMainFile(this)"><option value="">-- 과거 정규 일지 선택 --</option><option value="대신텍스타일_설비현황_2026-08-29_08시.html">📅 2026-08-29 (08시)</option><option value="대신텍스타일_설비현황_2026-08-30_08시.html">📅 2026-08-30 (08시)</option><option value="대신텍스타일_설비현황_2026-08-31_08시.html">📅 2026-08-31 (08시)</option><option value="대신텍스타일_설비현황_2026-09-01_08시.html" selected="selected">📅 2026-09-01 (08시)</option></select>
+      <select id="main-saved-file-list" onchange="loadSelectedMainFile(this)"><option value="" selected="selected">-- 과거 정규 일지 선택 --</option><option value="대신텍스타일_설비현황_2026-08-29_08시.html">📅 2026-08-29 (08시)</option><option value="대신텍스타일_설비현황_2026-08-30_08시.html">📅 2026-08-30 (08시)</option><option value="대신텍스타일_설비현황_2026-08-31_08시.html">📅 2026-08-31 (08시)</option><option value="대신텍스타일_설비현황_2026-09-01_08시.html">📅 2026-09-01 (08시)</option><option value="대신텍스타일_설비현황_2026-09-02_08시.html">📅 2026-09-02 (08시)</option></select>
     </div>
 
     <div class="date-picker-box">
@@ -225,7 +225,7 @@
 </div>
 
 <!-- TAB 2: 샘플 작업 입력 화면 -->
-<div id="tab-sample" class="tab-content">
+<div id="tab-sample" class="tab-content active">
   <div class="top-bar sample-top-bar">
     <div class="load-file-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📂 샘플 일지 불러오기:</label>
@@ -234,16 +234,16 @@
 
     <div class="date-picker-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📅 샘플 작업 일시:</label>
-      <input type="date" id="sample-record-date" value="2026-09-02">
+      <input type="date" id="sample-record-date" value="2026-09-01">
       <select id="sample-record-time">
         <option value="00시">00:00 (자정)</option>
         <option value="02시">02:00</option>
         <option value="04시">04:00</option>
         <option value="06시">06:00</option>
         <option value="08시">08:00 (오전)</option>
-        <option value="10시" selected="selected">10:00</option>
+        <option value="10시">10:00</option>
         <option value="12시">12:00 (정오)</option>
-        <option value="14시">14:00</option>
+        <option value="14시" selected="selected">14:00</option>
         <option value="16시">16:00</option>
         <option value="18시">18:00 (퇴근)</option>
         <option value="20시">20:00</option>
@@ -259,11 +259,11 @@
   <div class="summary-bar" style="background:#2c5282;">
     <div class="summary-item">
       <div class="title">🧪 해당 타임 샘플 생산량</div>
-      <div class="value" id="sum-sample-prod" style="color:#faf089;">0 Y/M</div>
+      <div class="value" id="sum-sample-prod" style="color:#faf089;">500 Y/M</div>
     </div>
     <div class="summary-item">
       <div class="title">💵 해당 타임 샘플비 수입</div>
-      <div class="value sample-money" id="sum-sample-revenue">0 원</div>
+      <div class="value sample-money" id="sum-sample-revenue">400,000 원</div>
     </div>
   </div>
 
@@ -390,18 +390,18 @@
           </div>
           <div class="card-body">
             <div class="info-sec" style="flex:1;">
-              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value="SINGA MESH -B"></div>
               <div>
                 <label>절단마수</label>
                 <div style="display:flex; gap:2px; width:95%;">
-                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <input type="number" class="sample-cut-yd" value="500" onchange="calcSampleProd(this)">
                   <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
                 </div>
               </div>
-              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
-              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="1" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="500 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="400000" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="400,000 원" data-val="400000"></div>
             </div>
           </div>
         </div>
@@ -713,15 +713,15 @@
     <div class="report-header-bar">
       <div class="report-title">
         <span>📊 정밀 데이터 분석 및 아이템 제직 이력 보고서</span>
-        <span id="report-period-text" class="report-period-tag">구간 : 2026-09-01 08시 ~ 2026-09-01 14시</span>
+        <span id="report-period-text" class="report-period-tag">구간 : 2026-08-31 08시 ~ 2026-09-01 14시</span>
       </div>
       
       <div class="filter-controls">
         <div class="period-filter-box">
           <label>📅 시작일:</label>
-          <input type="date" id="search-start-date" value="2026-09-01">
+          <input type="date" id="search-start-date" value="2026-08-31">
           <label>~ 종료일:</label>
-          <input type="date" id="search-end-date" value="2026-09-02">
+          <input type="date" id="search-end-date" value="2026-09-01">
           <button onclick="filterAndRenderReport()" class="btn btn-analyze" style="padding: 4px 10px; font-size:12px;">🔍 기간 분석</button>
         </div>
 
@@ -738,11 +738,11 @@
     <div class="total-summary-card">
       <div class="box">
         <div class="t-title" id="summary-title-1">📦 선택 범위 내 1~19호기 '실제 제직 달성량' 총합</div>
-        <div class="t-val" id="grand-total-prod">+0 Y/M</div>
+        <div class="t-val" id="grand-total-prod">+12,182 Y/M</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-2">💰 선택 범위 내 '정규 제직 수입' 총합</div>
-        <div class="t-val money" id="grand-total-income">+0 원</div>
+        <div class="t-val money" id="grand-total-income">+6,570,000 원</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-3">🧪 선택 범위 내 '샘플비 수입' 총합</div>
@@ -754,13 +754,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 1T 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +288,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">POLY THIN EVAN</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +480 Y (+5절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">84.4%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">83.3%</span><br>
             
             
           </div>
@@ -799,13 +799,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 4D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +392,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">MARTE OP5</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +350 Y (+7절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">98.8%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">91.7%</span><br>
             
             
           </div>
@@ -814,14 +814,14 @@
         <div class="report-card">
           <h4>
             <span>🏭 5D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +292,500원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">BD</span><br>
-            <b>기간 달성량:</b> +0 M (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
-            
+            <b>기간 달성량:</b> +225 M (+3절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">65.7%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">79.2%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 8/31일 [5번 빔 교체됨]</div> <br>
             
           </div>
         </div>
@@ -829,13 +829,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 6FR 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +400,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">SINGA MESH-B</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +500 Y (+1절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">100.3%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">100%</span><br>
             
             
           </div>
@@ -859,13 +859,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 8D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +291,600원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">DT-3004</span><br>
-            <b>기간 달성량:</b> +0 M (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +135 M (+3절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">62.5%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">91.7%</span><br>
             
             
           </div>
@@ -874,13 +874,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 9D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +320,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">LIMA S/W 66</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +200 Y (+4절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">90.7%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">91.7%</span><br>
             
             
           </div>
@@ -889,14 +889,14 @@
         <div class="report-card">
           <h4>
             <span>🏭 10D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +273,800원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">PAD 4T-E-1</span><br>
-            <b>기간 달성량:</b> +0 M (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
-            
+            <b>기간 달성량:</b> +148 M (+4절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">67.9%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">70.8%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 8/31일 [3, 4번 빔 교체됨]</div> <br>
             
           </div>
         </div>
@@ -904,14 +904,14 @@
         <div class="report-card">
           <h4>
             <span>🏭 11D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +70,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">X-RAY 5</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
-            
+            <b>기간 달성량:</b> +50 Y (+1절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">16.1%</span><br>
+            <b>기계 가동률:</b> <span style="color:#d69e2e; font-weight:bold; background:#fffff0; padding:2px 6px; border-radius:4px; border:1px solid #faf089; font-size:11px;">아이템 교체</span><br>
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 8/31일 아이템 변경 (SDR-T ➔ X-RAY 5)</div> <div class="beam-changed-tag">🔄 8/31일 [2, 3, 4, 6번 빔 교체됨]</div> <br>
             
           </div>
         </div>
@@ -919,13 +919,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 12D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +406,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">PAD 1.8T</span><br>
-            <b>기간 달성량:</b> +0 M (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +280 M (+7절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">97.2%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">100%</span><br>
             
             
           </div>
@@ -934,13 +934,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 13D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +857,920원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">MARTE OP5</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +766 Y (+16절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">106.4%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">100%</span><br>
             
             
           </div>
@@ -949,13 +949,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 14D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +420,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">DT9423</span><br>
-            <b>기간 달성량:</b> +0 M (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +280 M (+7절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">83.8%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">87.5%</span><br>
             
             
           </div>
@@ -964,13 +964,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 15D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +591,500원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">SAIDA SW</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +350 Y (+7절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">96.3%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">100%</span><br>
             
             
           </div>
@@ -979,14 +979,14 @@
         <div class="report-card">
           <h4>
             <span>🏭 16D 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +915,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">132"SW (75D)</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
-            
+            <b>기간 달성량:</b> +250 Y (+10절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">63.5%</span><br>
+            <b>기계 가동률:</b> <span style="color:#d69e2e; font-weight:bold; background:#fffff0; padding:2px 6px; border-radius:4px; border:1px solid #faf089; font-size:11px;">아이템 교체</span><br>
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 8/31일 아이템 변경 (132*SW (30D) ➔ 132"SW (75D))</div> <br>
             
           </div>
         </div>
@@ -994,13 +994,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 17FR 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +240,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">Rader M/S</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +800 Y (+8절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">61.1%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">100%</span><br>
             
             
           </div>
@@ -1009,13 +1009,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 18FR 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +420,000원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">Chair M/S-60</span><br>
-            <b>기간 달성량:</b> +0 Y (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +840 Y (+14절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">84.6%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">95.8%</span><br>
             
             
           </div>
@@ -1024,13 +1024,13 @@
         <div class="report-card">
           <h4>
             <span>🏭 19T 호기</span>
-            <span style="font-size:11px; color:#276749;">수입: +0원</span>
+            <span style="font-size:11px; color:#276749;">수입: +391,680원</span>
           </h4>
           <div class="report-item">
             <b>아이템:</b> <span style="font-weight:bold; color:#2b6cb0; font-size:12px;">50/50</span><br>
-            <b>기간 달성량:</b> +0 M (+0절)<br>
-            <b>원단 가동률:</b> <span class="efficiency-tag">0%</span><br>
-            <b>기계 가동률:</b> <span class="machine-eff-tag">0%</span><br>
+            <b>기간 달성량:</b> +6,528 M (+12절)<br>
+            <b>원단 가동률:</b> <span class="efficiency-tag">91.6%</span><br>
+            <b>기계 가동률:</b> <span class="machine-eff-tag">91.7%</span><br>
             
             
           </div>
