@@ -160,13 +160,13 @@
 
 <!-- 탭 메뉴 스위치 -->
 <div class="tab-menu-bar">
-  <button class="tab-btn" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
-  <button class="tab-btn sample-tab active" onclick="switchTab('sample')">🧪 샘플 및 오후원단작업입력(스팟일지)</button>
+  <button class="tab-btn active" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
+  <button class="tab-btn sample-tab" onclick="switchTab('sample')">🧪 샘플 및 오후원단작업입력(스팟일지)</button>
   <button class="tab-btn" onclick="switchTab('report')">📊 정밀 데이터 분석 및 아이템 이력 조회</button>
 </div>
 
 <!-- TAB 1: 설비 현황 입력 화면 -->
-<div id="tab-input" class="tab-content">
+<div id="tab-input" class="tab-content active">
   <div class="top-bar">
     <div class="load-file-box">
       <label>📂 정규 일지 불러오기:</label>
@@ -175,7 +175,7 @@
 
     <div class="date-picker-box">
       <label>📅 기록 기준 일시:</label>
-      <input type="date" id="main-record-date" value="2026-09-04">
+      <input type="date" id="main-record-date" value="2026-09-05">
       <select id="main-record-time">
         <option value="00시">00:00 (자정)</option>
         <option value="02시">02:00</option>
@@ -200,11 +200,11 @@
   <div class="summary-bar">
     <div class="summary-item">
       <div class="title">⚡ 총합 이론 생산량 (하루 기준)</div>
-      <div class="value" id="sum-m-prod">16,373 Y</div>
+      <div class="value" id="sum-m-prod">16,360 Y</div>
     </div>
     <div class="summary-item">
       <div class="title">💰 총합 하루 가득액</div>
-      <div class="value money" id="sum-daily-revenue">9,012,305 원</div>
+      <div class="value money" id="sum-daily-revenue">8,996,961 원</div>
     </div>
   </div>
 
@@ -212,27 +212,27 @@
     <div class="card" data-rpm-half="false" data-machine="1T"><div class="card-header g-28"><div><span>1T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>168 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="0" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="0 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="0" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="0" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="0 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="0 원" data-val="0"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="0 원" data-val="0"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="11" onchange="checkBarUrgent(this)"><input class="bar-input" value="40" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
     <div class="card" data-rpm-half="false" data-machine="2T"><div class="card-header g-28"><div><span>2T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>168 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="0" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="0 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="0" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="0" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="0 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="0 원" data-val="0"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="0 원" data-val="0"></div></div><div class="bar-grid"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
     <div class="card" data-rpm-half="false" data-machine="3T"><div class="card-header g-28"><div><span>3T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>168 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="630" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="13" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="1526.3 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="INNOMAX-ZETLEX" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5500" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="120" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="2" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="INNOMAX-ZETLEX" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="240 Y (4.4%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="600" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="144,000 원" data-val="144000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="915,809 원" data-val="915809"></div></div><div class="bar-grid"><input class="bar-input" value="82" onchange="checkBarUrgent(this)"><input class="bar-input" value="89" onchange="checkBarUrgent(this)"><input class="bar-input" value="82" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="4D"><div class="card-header g-22"><div><span>4D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>63 (460*3)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="630" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="354.3 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="MARTE OP5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="198" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="MARTE OP5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="9900 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1120" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="11,088,000 원" data-val="11088000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="396,850 원" data-val="396850"></div></div><div class="bar-grid"><input class="bar-input" value="440" onchange="checkBarUrgent(this)"><input class="bar-input" value="280" onchange="checkBarUrgent(this)"><input class="bar-input" value="403" onchange="checkBarUrgent(this)"><input class="bar-input" value="404" onchange="checkBarUrgent(this)"><input class="bar-input" value="435" onchange="checkBarUrgent(this)"><input class="bar-input" value="231" onchange="checkBarUrgent(this)"><input class="bar-input" value="231" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="5D"><div class="card-header g-22"><div><span>5D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>63 (460*3)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="354.1 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="BD" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="75" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="42" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="BD" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="3150 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1300" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="4,095,000 원" data-val="4095000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="460,328 원" data-val="460328"></div></div><div class="bar-grid"><input class="bar-input" value="40" onchange="checkBarUrgent(this)"><input class="bar-input" value="40" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input" value="112" onchange="checkBarUrgent(this)"><input class="bar-input" value="255" onchange="checkBarUrgent(this)"><input class="bar-input" value="122" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="false" data-machine="6FR"><div class="card-header g-20"><div><span>6FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20" selected="selected">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (420*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="560" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="15" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="587.9 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="SATELLITE-LD-B" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="2100" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="60" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="22" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="SATELLITE-LD-B" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1320 Y (62.9%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="800" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,056,000 원" data-val="1056000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="470,341 원" data-val="470341"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="113" onchange="checkBarUrgent(this)"><input class="bar-input" value="39" onchange="checkBarUrgent(this)"><input class="bar-input" value="39" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="4D"><div class="card-header g-22"><div><span>4D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>63 (460*3)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="630" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="354.3 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="MARTE OP5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="204" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="MARTE OP5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="10200 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1120" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="11,424,000 원" data-val="11424000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="396,850 원" data-val="396850"></div></div><div class="bar-grid"><input class="bar-input" value="419" onchange="checkBarUrgent(this)"><input class="bar-input" value="259" onchange="checkBarUrgent(this)"><input class="bar-input" value="382" onchange="checkBarUrgent(this)"><input class="bar-input" value="383" onchange="checkBarUrgent(this)"><input class="bar-input" value="403" onchange="checkBarUrgent(this)"><input class="bar-input" value="210" onchange="checkBarUrgent(this)"><input class="bar-input" value="210" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="5D"><div class="card-header g-22"><div><span>5D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>63 (460*3)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="342.3 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="BD" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="75" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="46" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="BD" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="3450 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1300" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="4,485,000 원" data-val="4485000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="444,984 원" data-val="444984"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="20" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="20" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="21" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="21" onchange="checkBarUrgent(this)"><input class="bar-input" value="95" onchange="checkBarUrgent(this)"><input class="bar-input" value="242" onchange="checkBarUrgent(this)"><input class="bar-input" value="106" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="6FR"><div class="card-header g-20"><div><span>6FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20" selected="selected">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (420*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="560" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="15" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="587.9 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="SATELLITE-LD-B" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="2100" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="60" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="30" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="SATELLITE-LD-B" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1800 Y (85.7%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="800" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,440,000 원" data-val="1440000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="470,341 원" data-val="470341"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="90" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="16" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="16" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
     <div class="card" data-rpm-half="false" data-machine="7FR"><div class="card-header g-24"><div><span>7FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24" selected="selected">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>132 (510*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="0" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="0 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DST-7-BELT" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="대기 중" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="0" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="0" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="DST-7-BELT" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="0 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="0 원" data-val="0"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="0 원" data-val="0"></div></div><div class="bar-grid"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="false" data-machine="8D"><div class="card-header g-22"><div><span>8D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="270" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="216 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DT-3004" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="45" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="51" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="DT-3004" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="2295 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="2160" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="4,957,200 원" data-val="4957200"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="466,560 원" data-val="466560"></div></div><div class="bar-grid"><input class="bar-input" value="681" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="5" onchange="checkBarUrgent(this)"><input class="bar-input" value="318" onchange="checkBarUrgent(this)"><input class="bar-input" value="119" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="11" onchange="checkBarUrgent(this)"><input class="bar-input" value="682" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="9D"><div class="card-header g-22"><div><span>9D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="560" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="20.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="220.5 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="LIMA S/W 66" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="27" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="48" data-prev-defect="0" data-prev-item="LIMA S/W 66" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1302 Y (26%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1600" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="2,083,200 원" data-val="2083200"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="352,756 원" data-val="352756"></div></div><div class="bar-grid"><input class="bar-input" value="308" onchange="checkBarUrgent(this)"><input class="bar-input" value="308" onchange="checkBarUrgent(this)"><input class="bar-input" value="270" onchange="checkBarUrgent(this)"><input class="bar-input" value="310" onchange="checkBarUrgent(this)"><input class="bar-input" value="310" onchange="checkBarUrgent(this)"><input class="bar-input" value="1030" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="false" data-machine="10D"><div class="card-header g-22"><div><span>10D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="280" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="217.9 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="PAD 4T-E-1" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="103" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="12" data-prev-defect="0" data-prev-item="PAD 4T-E-1" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="4108 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1850" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="7,599,800 원" data-val="7599800"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="403,200 원" data-val="403200"></div></div><div class="bar-grid"><input class="bar-input" value="1537" onchange="checkBarUrgent(this)"><input class="bar-input" value="582" onchange="checkBarUrgent(this)"><input class="bar-input" value="293" onchange="checkBarUrgent(this)"><input class="bar-input" value="293" onchange="checkBarUrgent(this)"><input class="bar-input" value="579" onchange="checkBarUrgent(this)"><input class="bar-input" value="1537" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="11D"><div class="card-header g-22"><div><span>11D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="15.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="310.8 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="X-RAY 5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3000" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="18" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="16" data-prev-defect="0" data-prev-item="X-RAY 5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="884 Y (29.5%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1400" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,237,600 원" data-val="1237600"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="435,143 원" data-val="435143"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="276" onchange="checkBarUrgent(this)"><input class="bar-input" value="188" onchange="checkBarUrgent(this)"><input class="bar-input" value="599" onchange="checkBarUrgent(this)"><input class="bar-input" value="179" onchange="checkBarUrgent(this)"><input class="bar-input" value="45" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="12D"><div class="card-header g-22"><div><span>12D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="288 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="PAD 1.8T" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="126" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="13" data-prev-defect="0" data-prev-item="PAD 1.8T" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="5027 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1450" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="7,289,150 원" data-val="7289150"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="417,600 원" data-val="417600"></div></div><div class="bar-grid"><input class="bar-input" value="166" onchange="checkBarUrgent(this)"><input class="bar-input" value="150" onchange="checkBarUrgent(this)"><input class="bar-input" value="277" onchange="checkBarUrgent(this)"><input class="bar-input" value="279" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="1" onchange="checkBarUrgent(this)"><input class="bar-input" value="154" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="13D"><div class="card-header g-22"><div><span>13D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>126 (460*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="640" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="719.9 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="MARTE OP5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="728" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="34" data-prev-defect="0" data-prev-item="MARTE OP5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="36366 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1120" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="40,729,920 원" data-val="40729920"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="806,299 원" data-val="806299"></div></div><div class="bar-grid"><input class="bar-input" value="220" onchange="checkBarUrgent(this)"><input class="bar-input" value="209" onchange="checkBarUrgent(this)"><input class="bar-input" value="58" onchange="checkBarUrgent(this)"><input class="bar-input" value="59" onchange="checkBarUrgent(this)"><input class="bar-input" value="329" onchange="checkBarUrgent(this)"><input class="bar-input" value="480" onchange="checkBarUrgent(this)"><input class="bar-input" value="480" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="14D"><div class="card-header g-22"><div><span>14D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="334.1 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DT9423" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="224" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="13" data-prev-defect="0" data-prev-item="DT9423" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="8947 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1500" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="13,420,500 원" data-val="13420500"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="501,120 원" data-val="501120"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="191" onchange="checkBarUrgent(this)"><input class="bar-input" value="209" onchange="checkBarUrgent(this)"><input class="bar-input" value="209" onchange="checkBarUrgent(this)"><input class="bar-input" value="84" onchange="checkBarUrgent(this)"><input class="bar-input" value="106" onchange="checkBarUrgent(this)"><input class="bar-input" value="139" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="15D"><div class="card-header g-22"><div><span>15D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="13.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="363.4 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="SAIDA SW" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="40" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="SAIDA SW" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="2000 Y (40%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1690" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="3,380,000 원" data-val="3380000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="614,173 원" data-val="614173"></div></div><div class="bar-grid"><input class="bar-input" value="224" onchange="checkBarUrgent(this)"><input class="bar-input" value="224" onchange="checkBarUrgent(this)"><input class="bar-input" value="314" onchange="checkBarUrgent(this)"><input class="bar-input" value="280" onchange="checkBarUrgent(this)"><input class="bar-input" value="288" onchange="checkBarUrgent(this)"><input class="bar-input" value="171" onchange="checkBarUrgent(this)"><input class="bar-input" value="355" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="true" data-machine="16D"><div class="card-header g-22"><div><span>16D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>126 (460*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="393.7 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="132&quot;SW (75D)" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="25" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="45" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="132&quot;SW (75D)" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1125 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="3660" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="4,117,500 원" data-val="4117500"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="1,440,945 원" data-val="1440945"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="12" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="12" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="3" onchange="checkBarUrgent(this)"><input class="bar-input" value="57" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="9" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="10" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="false" data-machine="17FR"><div class="card-header g-20"><div><span>17FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20" selected="selected">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>113 (420*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="520" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="1310.2 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="Rader M/S" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="100" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="104" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="Rader M/S" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="10400 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="300" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="3,120,000 원" data-val="3120000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="393,071 원" data-val="393071"></div></div><div class="bar-grid"><input class="bar-input" value="50" onchange="checkBarUrgent(this)"><input class="bar-input" value="50" onchange="checkBarUrgent(this)"><input class="bar-input" value="50" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="false" data-machine="18FR"><div class="card-header g-24"><div><span>18FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24" selected="selected">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>113 (510*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="9.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="992.8 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="Chair M/S-60" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="60" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="50" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="Chair M/S-60" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="3000 Y (100%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="500" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,500,000 원" data-val="1500000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="496,405 원" data-val="496405"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
-    <div class="card" data-rpm-half="false" data-machine="19T"><div class="card-header g-28"><div><span>19T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>210 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="1244" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="7.3" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="7361.8 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="50/50" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="550" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="3" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="66" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="218" data-prev-defect="0" data-prev-item="50/50" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="36082 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="60" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="2,164,920 원" data-val="2164920"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="441,705 원" data-val="441705"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="3" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="64" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="8D"><div class="card-header g-22"><div><span>8D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="270" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="216 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DT-3004" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="45" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="55" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="DT-3004" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="2475 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="2160" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="5,346,000 원" data-val="5346000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="466,560 원" data-val="466560"></div></div><div class="bar-grid"><input class="bar-input" value="663" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input" value="298" onchange="checkBarUrgent(this)"><input class="bar-input" value="100" onchange="checkBarUrgent(this)"><input class="bar-input" value="403" onchange="checkBarUrgent(this)"><input class="bar-input" value="663" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="9D"><div class="card-header g-22"><div><span>9D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="560" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="20.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="220.5 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="LIMA S/W 66" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="30" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="48" data-prev-defect="0" data-prev-item="LIMA S/W 66" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1452 Y (29%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1600" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="2,323,200 원" data-val="2323200"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="352,756 원" data-val="352756"></div></div><div class="bar-grid"><input class="bar-input" value="284" onchange="checkBarUrgent(this)"><input class="bar-input" value="284" onchange="checkBarUrgent(this)"><input class="bar-input" value="247" onchange="checkBarUrgent(this)"><input class="bar-input" value="286" onchange="checkBarUrgent(this)"><input class="bar-input" value="286" onchange="checkBarUrgent(this)"><input class="bar-input" value="1003" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="10D"><div class="card-header g-22"><div><span>10D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="280" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="18.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="217.9 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="PAD 4T-E-1" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="109" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="12" data-prev-defect="0" data-prev-item="PAD 4T-E-1" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="4348 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1850" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="8,043,800 원" data-val="8043800"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="403,200 원" data-val="403200"></div></div><div class="bar-grid"><input class="bar-input" value="1513" onchange="checkBarUrgent(this)"><input class="bar-input" value="558" onchange="checkBarUrgent(this)"><input class="bar-input" value="269" onchange="checkBarUrgent(this)"><input class="bar-input" value="269" onchange="checkBarUrgent(this)"><input class="bar-input" value="555" onchange="checkBarUrgent(this)"><input class="bar-input" value="1513" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="11D"><div class="card-header g-22"><div><span>11D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="15.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="310.8 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="X-RAY 5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3000" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="23" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="16" data-prev-defect="0" data-prev-item="X-RAY 5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1134 Y (37.8%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1400" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="1,587,600 원" data-val="1587600"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="435,143 원" data-val="435143"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="253" onchange="checkBarUrgent(this)"><input class="bar-input" value="165" onchange="checkBarUrgent(this)"><input class="bar-input" value="575" onchange="checkBarUrgent(this)"><input class="bar-input" value="156" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="21" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="12D"><div class="card-header g-22"><div><span>12D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (460*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="288 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="PAD 1.8T" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="132" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="13" data-prev-defect="0" data-prev-item="PAD 1.8T" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="5267 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1450" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="7,637,150 원" data-val="7637150"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="417,600 원" data-val="417600"></div></div><div class="bar-grid"><input class="bar-input" value="145" onchange="checkBarUrgent(this)"><input class="bar-input" value="129" onchange="checkBarUrgent(this)"><input class="bar-input" value="256" onchange="checkBarUrgent(this)"><input class="bar-input" value="258" onchange="checkBarUrgent(this)"><input class="bar-input" value="352" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="2" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="13D"><div class="card-header g-22"><div><span>13D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>126 (460*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="640" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="14.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="719.9 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="MARTE OP5" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="742" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="34" data-prev-defect="0" data-prev-item="MARTE OP5" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="37066 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1120" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="41,513,920 원" data-val="41513920"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="806,299 원" data-val="806299"></div></div><div class="bar-grid"><input class="bar-input" value="195" onchange="checkBarUrgent(this)"><input class="bar-input" value="184" onchange="checkBarUrgent(this)"><input class="bar-input" value="34" onchange="checkBarUrgent(this)"><input class="bar-input" value="34" onchange="checkBarUrgent(this)"><input class="bar-input" value="304" onchange="checkBarUrgent(this)"><input class="bar-input" value="455" onchange="checkBarUrgent(this)"><input class="bar-input" value="455" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="14D"><div class="card-header g-22"><div><span>14D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="334.1 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="DT9423" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="40" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="121" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="28" data-prev-defect="0" data-prev-item="DT9423" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="4812 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1500" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="7,218,000 원" data-val="7218000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="501,120 원" data-val="501120"></div></div><div class="bar-grid"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="167" onchange="checkBarUrgent(this)"><input class="bar-input" value="186" onchange="checkBarUrgent(this)"><input class="bar-input" value="186" onchange="checkBarUrgent(this)"><input class="bar-input" value="61" onchange="checkBarUrgent(this)"><input class="bar-input" value="82" onchange="checkBarUrgent(this)"><input class="bar-input" value="116" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="15D"><div class="card-header g-22"><div><span>15D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>85 (510*4)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="13.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="363.4 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="SAIDA SW" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="5000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="50" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="47" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="SAIDA SW" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="2350 Y (47%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="1690" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="3,971,500 원" data-val="3971500"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="614,173 원" data-val="614173"></div></div><div class="bar-grid"><input class="bar-input" value="200" onchange="checkBarUrgent(this)"><input class="bar-input" value="200" onchange="checkBarUrgent(this)"><input class="bar-input" value="289" onchange="checkBarUrgent(this)"><input class="bar-input" value="256" onchange="checkBarUrgent(this)"><input class="bar-input" value="263" onchange="checkBarUrgent(this)"><input class="bar-input" value="146" onchange="checkBarUrgent(this)"><input class="bar-input" value="330" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="true" data-machine="16D"><div class="card-header g-22"><div><span>16D</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22" selected="selected">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>126 (460*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="600" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.0" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="393.7 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="132&quot;SW (75D)" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="25" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="48" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="132&quot;SW (75D)" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="1200 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="3660" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="4,392,000 원" data-val="4392000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="1,440,945 원" data-val="1440945"></div></div><div class="bar-grid"><input class="bar-input urgent-num" value="9" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="9" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="0" onchange="checkBarUrgent(this)"><input class="bar-input" value="54" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="6" onchange="checkBarUrgent(this)"><input class="bar-input urgent-num" value="7" onchange="checkBarUrgent(this)"><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="17FR"><div class="card-header g-20"><div><span>17FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20" selected="selected">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>113 (420*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="520" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="12.5" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="1310.2 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="Rader M/S" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="100" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="2" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="118" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="Rader M/S" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="11800 Y"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="300" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="3,540,000 원" data-val="3540000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="393,071 원" data-val="393071"></div></div><div class="bar-grid"><input class="bar-input" value="25" onchange="checkBarUrgent(this)"><input class="bar-input" value="26" onchange="checkBarUrgent(this)"><input class="bar-input" value="26" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="18FR"><div class="card-header g-24"><div><span>18FR</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24" selected="selected">24G</option><option value="28">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>113 (510*6)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="580" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="9.2" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="992.8 Y"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="Chair M/S-60" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="3,000Y" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="60" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="1" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="8" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="" data-prev-defect="0" data-prev-item="Chair M/S-60" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="480 Y (16%)"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="500" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="240,000 원" data-val="240000"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="496,405 원" data-val="496405"></div></div><div class="bar-grid"><input class="bar-input" value="87" onchange="checkBarUrgent(this)"><input class="bar-input" value="87" onchange="checkBarUrgent(this)"><input class="bar-input" value="33" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><input class="bar-input" value="" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
+    <div class="card" data-rpm-half="false" data-machine="19T"><div class="card-header g-28"><div><span>19T</span><select class="gauge-select" onchange="changeGaugeColor(this)"><option value="20">20G</option><option value="22">22G</option><option value="24">24G</option><option value="28" selected="selected">28G</option><option value="32">32G</option><option value="36">36G</option></select><span>210 (580*8)</span></div><div class="right-spec-box"><div class="spec-inputs"><input type="number" class="rpm-in" value="1244" onchange="calcProd(this)"> / <input type="number" class="density-in" step="0.1" value="7.3" onchange="calcProd(this)"></div><div class="m-prod-sub">M생산: <input type="text" class="calc-theory theory-input" readonly="" value="7361.8 M"></div></div></div><div class="card-body"><div class="info-sec"><div><label>아이템</label><input type="text" class="item-name" value="50/50" onchange="onItemNameChange(this)"></div><div><label>생목</label><input type="text" class="target-goal" value="-" onchange="calcProd(this)"></div><div><label>절단마수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="cut-yd" value="550" onchange="calcProd(this)"><select class="unit-sel" onchange="calcProd(this)"><option value="Y">Y</option><option value="M" selected="selected">M</option></select></div></div><div><label>원단폭수</label><input type="number" class="fabric-width" value="3" min="1" onchange="calcProd(this)"></div><div><label>생산절수</label><div style="display:flex; gap:2px; width:95%;"><input type="number" class="prod-cnt" value="75" onchange="calcProd(this)"><input type="number" class="defect-yd defect-input" placeholder="금일난절" value="218" data-prev-defect="0" data-prev-item="50/50" onchange="calcProd(this)"></div></div><div><label>달성량</label><input type="text" class="calc-total" readonly="" value="41032 M"></div><div><label>제직료</label><input type="number" class="weaving-fee" value="60" placeholder="원/단위" onchange="calcProd(this)"></div><div><label>가득액</label><input type="text" class="daily-revenue money-input" readonly="" value="2,461,920 원" data-val="2461920"></div><div><label>하루가득액</label><input type="text" class="daily-max-revenue daily-max-input" readonly="" value="441,705 원" data-val="441705"></div></div><div class="bar-grid"><input class="bar-input" value="49" onchange="checkBarUrgent(this)"><input class="bar-input" value="X" onchange="checkBarUrgent(this)"><input class="bar-input" value="45" onchange="checkBarUrgent(this)"><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div><div class="bar-black"></div></div></div></div>
   </div>
 </div>
 
 <!-- TAB 2: 샘플 작업 입력 화면 -->
-<div id="tab-sample" class="tab-content active">
+<div id="tab-sample" class="tab-content">
   <div class="top-bar sample-top-bar">
     <div class="load-file-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📂 샘플 일지 불러오기:</label>
@@ -241,17 +241,17 @@
 
     <div class="date-picker-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📅 샘플 작업 일시:</label>
-      <input type="date" id="sample-record-date" value="2026-09-03">
+      <input type="date" id="sample-record-date" value="2026-09-05">
       <select id="sample-record-time">
         <option value="00시">00:00 (자정)</option>
         <option value="02시">02:00</option>
         <option value="04시">04:00</option>
         <option value="06시">06:00</option>
         <option value="08시">08:00 (오전)</option>
-        <option value="10시">10:00</option>
+        <option value="10시" selected="selected">10:00</option>
         <option value="12시">12:00 (정오)</option>
         <option value="14시">14:00</option>
-        <option value="16시" selected="selected">16:00</option>
+        <option value="16시">16:00</option>
         <option value="18시">18:00 (퇴근)</option>
         <option value="20시">20:00</option>
         <option value="22시">22:00</option>
@@ -266,11 +266,11 @@
   <div class="summary-bar" style="background:#2c5282;">
     <div class="summary-item">
       <div class="title">🧪 해당 타임 샘플 생산량</div>
-      <div class="value" id="sum-sample-prod" style="color:#faf089;">60 Y/M</div>
+      <div class="value" id="sum-sample-prod" style="color:#faf089;">0 Y/M</div>
     </div>
     <div class="summary-item">
       <div class="title">💵 해당 타임 샘플비 수입</div>
-      <div class="value sample-money" id="sum-sample-revenue">100,000 원</div>
+      <div class="value sample-money" id="sum-sample-revenue">0 원</div>
     </div>
   </div>
 
@@ -328,17 +328,17 @@
           </div>
           <div class="card-body">
             <div class="info-sec" style="flex:1;">
-              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value="INNOMAX 밀도13.0 -> 16.0"></div>
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
               <div>
                 <label>절단마수</label>
                 <div style="display:flex; gap:2px; width:95%;">
-                  <input type="number" class="sample-cut-yd" value="20" onchange="calcSampleProd(this)">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
                   <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
                 </div>
               </div>
-              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="2" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="40 Y"></div>
-              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="0" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
               <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
             </div>
           </div>
@@ -355,13 +355,13 @@
               <div>
                 <label>절단마수</label>
                 <div style="display:flex; gap:2px; width:95%;">
-                  <input type="number" class="sample-cut-yd" value="" onchange="calcSampleProd(this)">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
                   <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
                 </div>
               </div>
-              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
               <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
-              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="0" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
               <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
             </div>
           </div>
@@ -673,18 +673,18 @@
           </div>
           <div class="card-body">
             <div class="info-sec" style="flex:1;">
-              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value="덕산, 마견 70회요청 이목조직2개, 1개짜리"></div>
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
               <div>
                 <label>절단마수</label>
                 <div style="display:flex; gap:2px; width:95%;">
-                  <input type="number" class="sample-cut-yd" value="10" onchange="calcSampleProd(this)">
+                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
                   <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
                 </div>
               </div>
-              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="2" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="20 Y"></div>
-              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="100000" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="100,000 원" data-val="100000"></div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
             </div>
           </div>
         </div>
@@ -720,15 +720,15 @@
     <div class="report-header-bar">
       <div class="report-title">
         <span>📊 정밀 데이터 분석 및 아이템 제직 이력 보고서</span>
-        <span id="report-period-text" class="report-period-tag">구간 : 2026-09-03 08시 ~ 2026-09-04 08시</span>
+        <span id="report-period-text" class="report-period-tag">구간 : 2026-09-01 08시 ~ 2026-09-04 08시</span>
       </div>
       
       <div class="filter-controls">
         <div class="period-filter-box">
           <label>📅 시작일:</label>
-          <input type="date" id="search-start-date" value="2026-09-03">
+          <input type="date" id="search-start-date" value="2026-09-01">
           <label>~ 종료일:</label>
-          <input type="date" id="search-end-date" value="2026-09-04">
+          <input type="date" id="search-end-date" value="2026-09-05">
           <button onclick="filterAndRenderReport()" class="btn btn-analyze" style="padding: 4px 10px; font-size:12px;">🔍 기간 분석</button>
         </div>
 
@@ -745,15 +745,15 @@
     <div class="total-summary-card">
       <div class="box">
         <div class="t-title" id="summary-title-1">📦 선택 범위 내 1~19호기 '실제 제직 달성량' 총합</div>
-        <div class="t-val" id="grand-total-prod">+11,855 Y/M</div>
+        <div class="t-val" id="grand-total-prod">+34,780 Y/M</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-2">💰 선택 범위 내 '정규 제직 수입' 총합</div>
-        <div class="t-val money" id="grand-total-income">+6,571,800 원</div>
+        <div class="t-val money" id="grand-total-income">+20,266,770 원</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-3">🧪 선택 범위 내 '샘플비 수입' 총합</div>
-        <div class="t-val sample" id="grand-total-sample-income">+100,000 원</div>
+        <div class="t-val sample" id="grand-total-sample-income">+500,000 원</div>
       </div>
     </div>
 
@@ -764,14 +764,24 @@
             <span style="font-size:11px; color:#276749;">총수입: +0원</span>
           </h4>
           
-          <div class="item-section-box ">
+          <div class="item-section-box multi-section">
             <div class="item-section-title">
-              <span><b>가동없음 / 미기입</b></span>
+              <span>[구간 1] <b>POLY THIN EVAN</b></span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-02</span>
+            </div>
+            <b>제직수입: 0원 (+0Y * +0절 * 제직료 600원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
+            
+          </div>
+        
+          <div class="item-section-box multi-section">
+            <div class="item-section-title">
+              <span>[구간 2] <b>가동없음 / 미기입</b></span>
               <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
             </div>
             <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
-            
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 9/2일 아이템 변경 (POLY THIN EVAN ➔ 가동없음 / 미기입)</div> <br>
           </div>
         
           
@@ -786,14 +796,14 @@
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>가동없음 / 미기입</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
             <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
             
           </div>
         
-          
+          <div style="margin-top:4px; font-size:10px; color:#744210; background:#fffff0; padding:4px 6px; border-radius:3px; border:1px solid #fbd38d;"><b>🧪 샘플 및 원단마무리:</b><br>🧪 2026.09.02 [DST-28-260901] 430Y (0원)</div>
         </div>
       
         <div class="report-card">
@@ -802,33 +812,24 @@
             <span style="font-size:11px; color:#276749;">총수입: +144,000원</span>
           </h4>
           
-          <div class="item-section-box ">
+          <div class="item-section-box multi-section">
             <div class="item-section-title">
-              <span><b>INNOMAX-ZETLEX</b></span>
+              <span>[구간 1] <b>가동없음 / 미기입</b></span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-02</span>
+            </div>
+            <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
+            
+          </div>
+        
+          <div class="item-section-box multi-section">
+            <div class="item-section-title">
+              <span>[구간 2] <b>INNOMAX-ZETLEX</b></span>
               <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
             </div>
             <b>제직수입: 144,000원 (+240Y * +2절 * 제직료 600원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">15.7%</span> | 기계 <span class="machine-eff-tag">41.7%</span><br>
-            
-          </div>
-        
-          
-        </div>
-      
-        <div class="report-card">
-          <h4>
-            <span>🏭 4D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +392,000원</span>
-          </h4>
-          
-          <div class="item-section-box ">
-            <div class="item-section-title">
-              <span><b>MARTE OP5</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
-            </div>
-            <b>제직수입: 392,000원 (+350Y * +7절 * 제직료 1,120원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">98.8%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
-            
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 9/2일 아이템 변경 (가동없음 ➔ INNOMAX-ZETLEX)</div> <br>
           </div>
         
           <div style="margin-top:4px; font-size:10px; color:#744210; background:#fffff0; padding:4px 6px; border-radius:3px; border:1px solid #fbd38d;"><b>🧪 샘플 및 원단마무리:</b><br>🧪 2026.09.03 [INNOMAX 밀도13.0 -&gt; 16.0] 40Y (0원)</div>
@@ -836,17 +837,36 @@
       
         <div class="report-card">
           <h4>
+            <span>🏭 4D 호기</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,120,000원</span>
+          </h4>
+          
+          <div class="item-section-box ">
+            <div class="item-section-title">
+              <span><b>MARTE OP5</b></span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
+            </div>
+            <b>제직수입: 1,120,000원 (+1,000Y * +20절 * 제직료 1,120원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">94.1%</span> | 기계 <span class="machine-eff-tag">93.1%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3, 4번 빔 교체됨]</div> <br>
+          </div>
+        
+          
+        </div>
+      
+        <div class="report-card">
+          <h4>
             <span>🏭 5D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +292,500원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +975,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>BD</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 292,500원 (+225M * +3절 * 제직료 1,300원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">63.5%</span> | 기계 <span class="machine-eff-tag">75%</span><br>
+            <b>제직수입: 975,000원 (+750M * +10절 * 제직료 1,300원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">73%</span> | 기계 <span class="machine-eff-tag">90.3%</span><br>
             
           </div>
         
@@ -856,20 +876,30 @@
         <div class="report-card">
           <h4>
             <span>🏭 6FR 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +432,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,456,000원</span>
           </h4>
           
-          <div class="item-section-box ">
+          <div class="item-section-box multi-section">
             <div class="item-section-title">
-              <span><b>SATELLITE-LD-B</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span>[구간 1] <b>SINGA MESH-B</b></span>
+              <span class="section-date">📅 2026-09-01</span>
             </div>
-            <b>제직수입: 432,000원 (+540Y * +9절 * 제직료 800원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">93.5%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
+            <b>제직수입: 0원 (+0Y * +0절 * 제직료 800원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
             
           </div>
         
-          
+          <div class="item-section-box multi-section">
+            <div class="item-section-title">
+              <span>[구간 2] <b>SATELLITE-LD-B</b></span>
+              <span class="section-date">📅 2026-09-02 ~ 2026-09-04</span>
+            </div>
+            <b>제직수입: 1,056,000원 (+1,320Y * +22절 * 제직료 800원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">114.3%</span> | 기계 <span class="machine-eff-tag">95.8%</span><br>
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 9/1일 아이템 변경 (SINGA MESH-B ➔ SATELLITE-LD-B)</div> <br>
+          </div>
+        
+          <div style="margin-top:4px; font-size:10px; color:#744210; background:#fffff0; padding:4px 6px; border-radius:3px; border:1px solid #fbd38d;"><b>🧪 샘플 및 원단마무리:</b><br>🧪 2026.09.01 [SINGA MESH BLK 오후 제직분] 500Y (400,000원)</div>
         </div>
       
         <div class="report-card">
@@ -881,7 +911,7 @@
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>DST-7-BELT</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
             <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
@@ -894,17 +924,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 8D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +388,800원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,263,600원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>DT-3004</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 388,800원 (+180M * +4절 * 제직료 2,160원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">83.3%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
-            
+            <b>제직수입: 1,263,600원 (+585M * +13절 * 제직료 2,160원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">90.3%</span> | 기계 <span class="machine-eff-tag">97.2%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -913,16 +943,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 9D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +320,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +960,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>LIMA S/W 66</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 320,000원 (+200Y * +4절 * 제직료 1,600원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">90.7%</span> | 기계 <span class="machine-eff-tag">100%</span><br>
+            <b>제직수입: 960,000원 (+600Y * +12절 * 제직료 1,600원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">90.7%</span> | 기계 <span class="machine-eff-tag">98.6%</span><br>
             
           </div>
         
@@ -932,17 +962,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 10D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +370,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,110,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>PAD 4T-E-1</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 370,000원 (+200M * +5절 * 제직료 1,850원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">91.8%</span> | 기계 <span class="machine-eff-tag">95.8%</span><br>
-            
+            <b>제직수입: 1,110,000원 (+600M * +15절 * 제직료 1,850원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">91.8%</span> | 기계 <span class="machine-eff-tag">87.5%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/1일 [2, 5번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -951,17 +981,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 11D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +420,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,167,600원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>X-RAY 5</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 420,000원 (+300Y * +6절 * 제직료 1,400원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">96.5%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
-            
+            <b>제직수입: 1,167,600원 (+834Y * +17절 * 제직료 1,400원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">89.4%</span> | 기계 <span class="machine-eff-tag">88.9%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [2번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -970,17 +1000,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 12D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +406,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,025,150원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>PAD 1.8T</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 406,000원 (+280M * +7절 * 제직료 1,450원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">97.2%</span> | 기계 <span class="machine-eff-tag">87.5%</span><br>
-            
+            <b>제직수입: 1,025,150원 (+707M * +18절 * 제직료 1,450원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">81.8%</span> | 기계 <span class="machine-eff-tag">90.3%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/1일 [2, 5번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -989,16 +1019,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 13D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +784,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +2,352,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>MARTE OP5</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 784,000원 (+700Y * +14절 * 제직료 1,120원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">97.2%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
+            <b>제직수입: 2,352,000원 (+2,100Y * +42절 * 제직료 1,120원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">97.2%</span> | 기계 <span class="machine-eff-tag">97.2%</span><br>
             
           </div>
         
@@ -1008,16 +1038,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 14D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +360,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,240,500원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>DT9423</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 360,000원 (+240M * +6절 * 제직료 1,500원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">71.8%</span> | 기계 <span class="machine-eff-tag">75%</span><br>
+            <b>제직수입: 1,240,500원 (+827M * +21절 * 제직료 1,500원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">82.5%</span> | 기계 <span class="machine-eff-tag">87.5%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/3일 [5번 빔 교체됨]</div> <br>
           </div>
         
@@ -1027,16 +1057,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 15D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +591,500원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,774,500원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>SAIDA SW</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 591,500원 (+350Y * +7절 * 제직료 1,690원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">96.3%</span> | 기계 <span class="machine-eff-tag">95.8%</span><br>
+            <b>제직수입: 1,774,500원 (+1,050Y * +21절 * 제직료 1,690원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">96.3%</span> | 기계 <span class="machine-eff-tag">98.6%</span><br>
             
           </div>
         
@@ -1046,16 +1076,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 16D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +915,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +3,202,500원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>132"SW (75D)</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 915,000원 (+250Y * +10절 * 제직료 3,660원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">63.5%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
+            <b>제직수입: 3,202,500원 (+875Y * +35절 * 제직료 3,660원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">74.1%</span> | 기계 <span class="machine-eff-tag">93.1%</span><br>
             
           </div>
         
@@ -1065,16 +1095,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 17FR 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +360,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,320,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>Rader M/S</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 360,000원 (+1,200Y * +12절 * 제직료 300원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">91.6%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
+            <b>제직수입: 1,320,000원 (+4,400Y * +44절 * 제직료 300원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">111.9%</span> | 기계 <span class="machine-eff-tag">95.8%</span><br>
             
           </div>
         
@@ -1084,16 +1114,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 18FR 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +100,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +580,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>Chair M/S-60</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 0원 (+0Y * +0절 * 제직료 500원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
+            <b>제직수입: 480,000원 (+960Y * +16절 * 제직료 500원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">32.2%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
             
           </div>
         
@@ -1103,17 +1133,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 19T 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +396,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,075,920원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>50/50</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-04</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-04</span>
             </div>
-            <b>제직수입: 396,000원 (+6,600M * +12절 * 제직료 60원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">92.6%</span> | 기계 <span class="machine-eff-tag">100%</span><br>
-            
+            <b>제직수입: 1,075,920원 (+17,932M * +33절 * 제직료 60원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">83.9%</span> | 기계 <span class="machine-eff-tag">87.5%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3번 빔 교체됨]</div> <br>
           </div>
         
           
