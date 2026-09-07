@@ -159,17 +159,17 @@
 
 <!-- 탭 메뉴 스위치 -->
 <div class="tab-menu-bar">
-  <button class="tab-btn active" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
-  <button class="tab-btn sample-tab" onclick="switchTab('sample')">🧪 샘플 및 오후원단작업입력(스팟일지)</button>
+  <button class="tab-btn" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
+  <button class="tab-btn sample-tab active" onclick="switchTab('sample')">🧪 샘플 및 오후원단작업입력(스팟일지)</button>
   <button class="tab-btn" onclick="switchTab('report')">📊 정밀 데이터 분석 및 아이템 이력 조회</button>
 </div>
 
 <!-- TAB 1: 설비 현황 입력 화면 -->
-<div id="tab-input" class="tab-content active">
+<div id="tab-input" class="tab-content">
   <div class="top-bar">
     <div class="load-file-box">
       <label>📂 정규 일지 불러오기:</label>
-      <select id="main-saved-file-list" onchange="loadSelectedMainFile(this)"><option value="">-- 과거 정규 일지 선택 --</option><option value="대신텍스타일_설비현황_2026-08-29_08시.html">📅 2026-08-29 (08시)</option><option value="대신텍스타일_설비현황_2026-08-30_08시.html">📅 2026-08-30 (08시)</option><option value="대신텍스타일_설비현황_2026-08-31_08시.html">📅 2026-08-31 (08시)</option><option value="대신텍스타일_설비현황_2026-09-01_08시.html">📅 2026-09-01 (08시)</option><option value="대신텍스타일_설비현황_2026-09-02_08시.html">📅 2026-09-02 (08시)</option><option value="대신텍스타일_설비현황_2026-09-03_08시.html">📅 2026-09-03 (08시)</option><option value="대신텍스타일_설비현황_2026-09-04_08시.html">📅 2026-09-04 (08시)</option><option value="대신텍스타일_설비현황_2026-09-05_08시.html" selected="selected">📅 2026-09-05 (08시)</option></select>
+      <select id="main-saved-file-list" onchange="loadSelectedMainFile(this)"><option value="" selected="selected">-- 과거 정규 일지 선택 --</option><option value="대신텍스타일_설비현황_2026-08-29_08시.html">📅 2026-08-29 (08시)</option><option value="대신텍스타일_설비현황_2026-08-30_08시.html">📅 2026-08-30 (08시)</option><option value="대신텍스타일_설비현황_2026-08-31_08시.html">📅 2026-08-31 (08시)</option><option value="대신텍스타일_설비현황_2026-09-01_08시.html">📅 2026-09-01 (08시)</option><option value="대신텍스타일_설비현황_2026-09-02_08시.html">📅 2026-09-02 (08시)</option><option value="대신텍스타일_설비현황_2026-09-03_08시.html">📅 2026-09-03 (08시)</option><option value="대신텍스타일_설비현황_2026-09-04_08시.html">📅 2026-09-04 (08시)</option><option value="대신텍스타일_설비현황_2026-09-05_08시.html">📅 2026-09-05 (08시)</option><option value="대신텍스타일_설비현황_2026-09-07_08시.html">📅 2026-09-07 (08시)</option></select>
     </div>
 
     <div class="date-picker-box">
@@ -231,7 +231,7 @@
 </div>
 
 <!-- TAB 2: 샘플 작업 입력 화면 -->
-<div id="tab-sample" class="tab-content">
+<div id="tab-sample" class="tab-content active">
   <div class="top-bar sample-top-bar">
     <div class="load-file-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📂 샘플 일지 불러오기:</label>
@@ -240,16 +240,16 @@
 
     <div class="date-picker-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📅 샘플 작업 일시:</label>
-      <input type="date" id="sample-record-date" value="2026-09-07">
+      <input type="date" id="sample-record-date" value="2026-09-06">
       <select id="sample-record-time">
         <option value="00시">00:00 (자정)</option>
         <option value="02시">02:00</option>
         <option value="04시">04:00</option>
         <option value="06시">06:00</option>
         <option value="08시">08:00 (오전)</option>
-        <option value="10시" selected="selected">10:00</option>
+        <option value="10시">10:00</option>
         <option value="12시">12:00 (정오)</option>
-        <option value="14시">14:00</option>
+        <option value="14시" selected="selected">14:00</option>
         <option value="16시">16:00</option>
         <option value="18시">18:00 (퇴근)</option>
         <option value="20시">20:00</option>
@@ -265,11 +265,11 @@
   <div class="summary-bar" style="background:#2c5282;">
     <div class="summary-item">
       <div class="title">🧪 해당 타임 샘플 생산량</div>
-      <div class="value" id="sum-sample-prod" style="color:#faf089;">0 Y/M</div>
+      <div class="value" id="sum-sample-prod" style="color:#faf089;">1,500 Y/M</div>
     </div>
     <div class="summary-item">
       <div class="title">💵 해당 타임 샘플비 수입</div>
-      <div class="value sample-money" id="sum-sample-revenue">0 원</div>
+      <div class="value sample-money" id="sum-sample-revenue">450,000 원</div>
     </div>
   </div>
 
@@ -672,18 +672,18 @@
           </div>
           <div class="card-body">
             <div class="info-sec" style="flex:1;">
-              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value="RADER 마무리분"></div>
               <div>
                 <label>절단마수</label>
                 <div style="display:flex; gap:2px; width:95%;">
-                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <input type="number" class="sample-cut-yd" value="100" onchange="calcSampleProd(this)">
                   <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
                 </div>
               </div>
-              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
-              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="15" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="1500 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="450000" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="450,000 원" data-val="450000"></div>
             </div>
           </div>
         </div>
@@ -719,7 +719,7 @@
     <div class="report-header-bar">
       <div class="report-title">
         <span>📊 정밀 데이터 분석 및 아이템 제직 이력 보고서</span>
-        <span id="report-period-text" class="report-period-tag">구간 : 2026-09-01 08시 ~ 2026-09-05 08시</span>
+        <span id="report-period-text" class="report-period-tag">구간 : 2026-09-01 08시 ~ 2026-09-07 08시</span>
       </div>
       
       <div class="filter-controls">
@@ -744,11 +744,11 @@
     <div class="total-summary-card">
       <div class="box">
         <div class="t-title" id="summary-title-1">📦 선택 범위 내 1~19호기 '실제 제직 달성량' 총합</div>
-        <div class="t-val" id="grand-total-prod">+44,700 Y/M</div>
+        <div class="t-val" id="grand-total-prod">+74,403 Y/M</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-2">💰 선택 범위 내 '정규 제직 수입' 총합</div>
-        <div class="t-val money" id="grand-total-income">+25,972,070 원</div>
+        <div class="t-val money" id="grand-total-income">+43,441,120 원</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-3">🧪 선택 범위 내 '샘플비 수입' 총합</div>
@@ -776,7 +776,7 @@
           <div class="item-section-box multi-section">
             <div class="item-section-title">
               <span>[구간 2] <b>가동없음 / 미기입</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-03 ~ 2026-09-07</span>
             </div>
             <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
@@ -795,7 +795,7 @@
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>가동없음 / 미기입</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
             <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
@@ -824,10 +824,10 @@
           <div class="item-section-box multi-section">
             <div class="item-section-title">
               <span>[구간 2] <b>INNOMAX-ZETLEX</b></span>
-              <span class="section-date">📅 2026-09-03 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-03 ~ 2026-09-07</span>
             </div>
             <b>제직수입: 144,000원 (+240Y * +2절 * 제직료 600원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">7.9%</span> | 기계 <span class="machine-eff-tag">41.7%</span><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">3.9%</span> | 기계 <span class="machine-eff-tag">41.7%</span><br>
             <b>특이사항:</b> <div class="item-changed-tag">✨ 9/2일 아이템 변경 (가동없음 ➔ INNOMAX-ZETLEX)</div> <br>
           </div>
         
@@ -837,16 +837,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 4D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,456,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +2,016,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>MARTE OP5</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,456,000원 (+1,300Y * +26절 * 제직료 1,120원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">91.7%</span> | 기계 <span class="machine-eff-tag">88.7%</span><br>
+            <b>제직수입: 2,016,000원 (+1,800Y * +36절 * 제직료 1,120원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">84.7%</span> | 기계 <span class="machine-eff-tag">84.1%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3, 4번 빔 교체됨]</div> <br>
           </div>
         
@@ -856,16 +856,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 5D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,365,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,755,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>BD</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,365,000원 (+1,050M * +14절 * 제직료 1,300원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">76.7%</span> | 기계 <span class="machine-eff-tag">80.8%</span><br>
+            <b>제직수입: 1,755,000원 (+1,350M * +18절 * 제직료 1,300원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">65.7%</span> | 기계 <span class="machine-eff-tag">67.9%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/4일 [3, 4번 빔 교체됨]</div> <br>
           </div>
         
@@ -875,7 +875,7 @@
         <div class="report-card">
           <h4>
             <span>🏭 6FR 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,840,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +3,040,000원</span>
           </h4>
           
           <div class="item-section-box multi-section">
@@ -898,6 +898,16 @@
             <b>특이사항:</b> <div class="item-changed-tag">✨ 9/1일 아이템 변경 (SINGA MESH-B ➔ SATELLITE-LD-B)</div> <br>
           </div>
         
+          <div class="item-section-box multi-section">
+            <div class="item-section-title">
+              <span>[구간 3] <b>SINGA-MESH BLACK</b></span>
+              <span class="section-date">📅 2026-09-07</span>
+            </div>
+            <b>제직수입: 1,200,000원 (+1,500Y * +3절 * 제직료 800원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">269.3%</span> | 기계 <span class="machine-eff-tag">269.3%</span><br>
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 9/6일 아이템 변경 (SATELLITE-LD-B ➔ SINGA-MESH BLACK)</div> <br>
+          </div>
+        
           <div style="margin-top:4px; font-size:10px; color:#744210; background:#fffff0; padding:4px 6px; border-radius:3px; border:1px solid #fbd38d;"><b>🧪 샘플 및 원단마무리:</b><br>🧪 2026.09.01 [SINGA MESH BLK 오후 제직분] 500Y (400,000원)</div>
         </div>
       
@@ -910,7 +920,7 @@
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>DST-7-BELT</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
             <b>제직수입: 0원 (+0Y * +0절 * 제직료 0원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">0%</span> | 기계 <span class="machine-eff-tag">0%</span><br>
@@ -923,17 +933,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 8D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,652,400원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +2,127,600원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>DT-3004</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,652,400원 (+765M * +17절 * 제직료 2,160원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">88.5%</span> | 기계 <span class="machine-eff-tag">82%</span><br>
-            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/4일 [5번 빔 교체됨]</div> <br>
+            <b>제직수입: 2,127,600원 (+985M * +22절 * 제직료 2,160원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">76%</span> | 기계 <span class="machine-eff-tag">75.3%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/4일 [5번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/6일 [2, 5번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -942,16 +952,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 9D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,200,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,760,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>LIMA S/W 66</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,200,000원 (+750Y * +15절 * 제직료 1,600원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">85%</span> | 기계 <span class="machine-eff-tag">97.4%</span><br>
+            <b>제직수입: 1,760,000원 (+1,100Y * +22절 * 제직료 1,600원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">83.1%</span> | 기계 <span class="machine-eff-tag">94.6%</span><br>
             
           </div>
         
@@ -961,16 +971,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 10D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,554,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +2,146,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>PAD 4T-E-1</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,554,000원 (+840M * +21절 * 제직료 1,850원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">96.4%</span> | 기계 <span class="machine-eff-tag">90.2%</span><br>
+            <b>제직수입: 2,146,000원 (+1,160M * +29절 * 제직료 1,850원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">88.7%</span> | 기계 <span class="machine-eff-tag">85.5%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/1일 [2, 5번 빔 교체됨]</div> <br>
           </div>
         
@@ -980,17 +990,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 11D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,517,600원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +2,147,600원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>X-RAY 5</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,517,600원 (+1,084Y * +22절 * 제직료 1,400원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">87.2%</span> | 기계 <span class="machine-eff-tag">90.1%</span><br>
-            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [2번 빔 교체됨]</div> <br>
+            <b>제직수입: 2,147,600원 (+1,534Y * +31절 * 제직료 1,400원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">82.3%</span> | 기계 <span class="machine-eff-tag">82.8%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [2번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/6일 [6번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -999,17 +1009,17 @@
         <div class="report-card">
           <h4>
             <span>🏭 12D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,373,150원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,885,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>PAD 1.8T</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,373,150원 (+947M * +24절 * 제직료 1,450원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">82.2%</span> | 기계 <span class="machine-eff-tag">88.5%</span><br>
-            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/1일 [2, 5번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/4일 [5번 빔 교체됨]</div> <br>
+            <b>제직수입: 1,885,000원 (+1,300M * +33절 * 제직료 1,450원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">75.2%</span> | 기계 <span class="machine-eff-tag">80.5%</span><br>
+            <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/1일 [2, 5번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/4일 [5번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/6일 [6번 빔 교체됨]</div> <br>
           </div>
         
           
@@ -1018,16 +1028,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 13D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +3,136,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +4,256,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>MARTE OP5</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 3,136,000원 (+2,800Y * +56절 * 제직료 1,120원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">97.2%</span> | 기계 <span class="machine-eff-tag">97.2%</span><br>
+            <b>제직수입: 4,256,000원 (+3,800Y * +76절 * 제직료 1,120원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">88%</span> | 기계 <span class="machine-eff-tag">88.4%</span><br>
             
           </div>
         
@@ -1037,16 +1047,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 14D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,698,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +2,388,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>DT9423</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,698,000원 (+1,132M * +29절 * 제직료 1,500원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">84.7%</span> | 기계 <span class="machine-eff-tag">88.4%</span><br>
+            <b>제직수입: 2,388,000원 (+1,592M * +41절 * 제직료 1,500원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">79.4%</span> | 기계 <span class="machine-eff-tag">82.3%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/3일 [5번 빔 교체됨]</div> <br>
           </div>
         
@@ -1056,16 +1066,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 15D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +2,366,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +3,211,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>SAIDA SW</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 2,366,000원 (+1,400Y * +28절 * 제직료 1,690원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">96.3%</span> | 기계 <span class="machine-eff-tag">97.6%</span><br>
+            <b>제직수입: 3,211,000원 (+1,900Y * +38절 * 제직료 1,690원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">87.1%</span> | 기계 <span class="machine-eff-tag">89.1%</span><br>
             
           </div>
         
@@ -1075,17 +1085,27 @@
         <div class="report-card">
           <h4>
             <span>🏭 16D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +3,477,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +6,377,000원</span>
           </h4>
           
-          <div class="item-section-box ">
+          <div class="item-section-box multi-section">
             <div class="item-section-title">
-              <span><b>132"SW (75D)</b></span>
+              <span>[구간 1] <b>132"SW (75D)</b></span>
               <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
             </div>
             <b>제직수입: 3,477,000원 (+950Y * +38절 * 제직료 3,660원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">60.3%</span> | 기계 <span class="machine-eff-tag">72.9%</span><br>
             
+          </div>
+        
+          <div class="item-section-box multi-section">
+            <div class="item-section-title">
+              <span>[구간 2] <b>VALSU</b></span>
+              <span class="section-date">📅 2026-09-07</span>
+            </div>
+            <b>제직수입: 2,900,000원 (+2,500Y * +50절 * 제직료 1,160원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">370.4%</span> | 기계 <span class="machine-eff-tag">370.4%</span><br>
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 9/6일 아이템 변경 (132"SW (75D) ➔ VALSU)</div> <br>
           </div>
         
           
@@ -1094,17 +1114,27 @@
         <div class="report-card">
           <h4>
             <span>🏭 17FR 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,740,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +7,640,000원</span>
           </h4>
           
-          <div class="item-section-box ">
+          <div class="item-section-box multi-section">
             <div class="item-section-title">
-              <span><b>Rader M/S</b></span>
+              <span>[구간 1] <b>Rader M/S</b></span>
               <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
             </div>
             <b>제직수입: 1,740,000원 (+5,800Y * +58절 * 제직료 300원)</b><br>
             <b>가동률:</b> 원단 <span class="efficiency-tag">110.7%</span> | 기계 <span class="machine-eff-tag">96.5%</span><br>
             
+          </div>
+        
+          <div class="item-section-box multi-section">
+            <div class="item-section-title">
+              <span>[구간 2] <b>1-2501</b></span>
+              <span class="section-date">📅 2026-09-07</span>
+            </div>
+            <b>제직수입: 5,900,000원 (+11,800M * +118절 * 제직료 500원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">778.5%</span> | 기계 <span class="machine-eff-tag">778.5%</span><br>
+            <b>특이사항:</b> <div class="item-changed-tag">✨ 9/6일 아이템 변경 (Rader M/S ➔ 1-2501)</div> <br>
           </div>
         
           
@@ -1113,16 +1143,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 18FR 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +580,000원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,180,000원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>Chair M/S-60</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 480,000원 (+960Y * +16절 * 제직료 500원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">24.2%</span> | 기계 <span class="machine-eff-tag">91.7%</span><br>
+            <b>제직수입: 1,080,000원 (+2,160Y * +36절 * 제직료 500원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">36.3%</span> | 기계 <span class="machine-eff-tag">75%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/4일 [1, 2, 3번 빔 교체됨]</div> <br>
           </div>
         
@@ -1132,16 +1162,16 @@
         <div class="report-card">
           <h4>
             <span>🏭 19T 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +1,372,920원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +1,867,920원</span>
           </h4>
           
           <div class="item-section-box ">
             <div class="item-section-title">
               <span><b>50/50</b></span>
-              <span class="section-date">📅 2026-09-01 ~ 2026-09-05</span>
+              <span class="section-date">📅 2026-09-01 ~ 2026-09-07</span>
             </div>
-            <b>제직수입: 1,372,920원 (+22,882M * +42절 * 제직료 60원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">80.3%</span> | 기계 <span class="machine-eff-tag">84.4%</span><br>
+            <b>제직수입: 1,867,920원 (+31,132M * +57절 * 제직료 60원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">72.8%</span> | 기계 <span class="machine-eff-tag">74%</span><br>
             <b>특이사항:</b> <div class="beam-changed-tag">🔄 9/2일 [3번 빔 교체됨]</div> <div class="beam-changed-tag">🔄 9/4일 [1번 빔 교체됨]</div> <br>
           </div>
         
