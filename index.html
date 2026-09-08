@@ -159,13 +159,13 @@
 
 <!-- 탭 메뉴 스위치 -->
 <div class="tab-menu-bar">
-  <button class="tab-btn active" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
-  <button class="tab-btn sample-tab" onclick="switchTab('sample')">🧪 샘플 및 오후원단작업입력(스팟일지)</button>
+  <button class="tab-btn" onclick="switchTab('input')">📝 설비 현황 입력 (정규 일지)</button>
+  <button class="tab-btn sample-tab active" onclick="switchTab('sample')">🧪 샘플 및 오후원단작업입력(스팟일지)</button>
   <button class="tab-btn" onclick="switchTab('report')">📊 정밀 데이터 분석 및 아이템 이력 조회</button>
 </div>
 
 <!-- TAB 1: 설비 현황 입력 화면 -->
-<div id="tab-input" class="tab-content active">
+<div id="tab-input" class="tab-content">
   <div class="top-bar">
     <div class="load-file-box">
       <label>📂 정규 일지 불러오기:</label>
@@ -231,7 +231,7 @@
 </div>
 
 <!-- TAB 2: 샘플 작업 입력 화면 -->
-<div id="tab-sample" class="tab-content">
+<div id="tab-sample" class="tab-content active">
   <div class="top-bar sample-top-bar">
     <div class="load-file-box" style="background:#fffaf0; border-color:#dd6b20;">
       <label style="color:#c05621;">📂 샘플 일지 불러오기:</label>
@@ -247,12 +247,12 @@
         <option value="04시">04:00</option>
         <option value="06시">06:00</option>
         <option value="08시">08:00 (오전)</option>
-        <option value="10시" selected="selected">10:00</option>
+        <option value="10시">10:00</option>
         <option value="12시">12:00 (정오)</option>
         <option value="14시">14:00</option>
         <option value="16시">16:00</option>
         <option value="18시">18:00 (퇴근)</option>
-        <option value="20시">20:00</option>
+        <option value="20시" selected="selected">20:00</option>
         <option value="22시">22:00</option>
       </select>
     </div>
@@ -265,11 +265,11 @@
   <div class="summary-bar" style="background:#2c5282;">
     <div class="summary-item">
       <div class="title">🧪 해당 타임 샘플 생산량</div>
-      <div class="value" id="sum-sample-prod" style="color:#faf089;">0 Y/M</div>
+      <div class="value" id="sum-sample-prod" style="color:#faf089;">20 Y/M</div>
     </div>
     <div class="summary-item">
       <div class="title">💵 해당 타임 샘플비 수입</div>
-      <div class="value sample-money" id="sum-sample-revenue">0 원</div>
+      <div class="value sample-money" id="sum-sample-revenue">50,000 원</div>
     </div>
   </div>
 
@@ -373,18 +373,18 @@
           </div>
           <div class="card-body">
             <div class="info-sec" style="flex:1;">
-              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value=""></div>
+              <div><label>샘플 아이템</label><input type="text" class="sample-item-name" placeholder="예: INNOMAX ZETLEX" value="SUN 에서 요청한 CARNESO 유사한 샘플원단 66&quot;"></div>
               <div>
                 <label>절단마수</label>
                 <div style="display:flex; gap:2px; width:95%;">
-                  <input type="number" class="sample-cut-yd" value="0" onchange="calcSampleProd(this)">
+                  <input type="number" class="sample-cut-yd" value="20" onchange="calcSampleProd(this)">
                   <select class="sample-unit-sel" onchange="calcSampleProd(this)"><option value="Y" selected="selected">Y</option><option value="M">M</option></select>
                 </div>
               </div>
-              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="0" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="0 Y"></div>
-              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
-              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="0 원" data-val="0"></div>
+              <div><label>샘플 절수</label><input type="number" class="sample-prod-cnt" value="1" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 달성량</label><input type="text" class="sample-calc-total" readonly="" value="20 Y"></div>
+              <div><label>건당 샘플료</label><input type="number" class="sample-fee" value="50000" placeholder="건당 총액(원)" onchange="calcSampleProd(this)"></div>
+              <div><label>샘플 수입</label><input type="text" class="sample-revenue sample-money-input" readonly="" value="50,000 원" data-val="50000"></div>
             </div>
           </div>
         </div>
@@ -744,11 +744,11 @@
     <div class="total-summary-card">
       <div class="box">
         <div class="t-title" id="summary-title-1">📦 선택 범위 내 1~19호기 '실제 제직 달성량' 총합</div>
-        <div class="t-val" id="grand-total-prod">+11,014 Y/M</div>
+        <div class="t-val" id="grand-total-prod">+10,789 Y/M</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-2">💰 선택 범위 내 '정규 제직 수입' 총합</div>
-        <div class="t-val money" id="grand-total-income">+6,976,570 원</div>
+        <div class="t-val money" id="grand-total-income">+6,490,570 원</div>
       </div>
       <div class="box">
         <div class="t-title" id="summary-title-3">🧪 선택 범위 내 '샘플비 수입' 총합</div>
@@ -893,7 +893,7 @@
         <div class="report-card">
           <h4>
             <span>🏭 8D 호기</span>
-            <span style="font-size:11px; color:#276749;">총수입: +874,800원</span>
+            <span style="font-size:11px; color:#276749;">총수입: +388,800원</span>
           </h4>
           
           <div class="item-section-box ">
@@ -901,8 +901,8 @@
               <span><b>DT-3004</b></span>
               <span class="section-date">📅 2026-09-07 ~ 2026-09-08</span>
             </div>
-            <b>제직수입: 874,800원 (+405M * +9절 * 제직료 2,160원)</b><br>
-            <b>가동률:</b> 원단 <span class="efficiency-tag">187.5%</span> | 기계 <span class="machine-eff-tag">93.1%</span><br>
+            <b>제직수입: 388,800원 (+180M * +4절 * 제직료 2,160원)</b><br>
+            <b>가동률:</b> 원단 <span class="efficiency-tag">83.3%</span> | 기계 <span class="machine-eff-tag">93.1%</span><br>
             
           </div>
         
